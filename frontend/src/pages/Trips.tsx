@@ -126,7 +126,7 @@ export default function Trips() {
                                         value={newTrip.cargo_weight}
                                         onChange={e => setNewTrip({ ...newTrip, cargo_weight: e.target.value })}
                                         error={!!isOverweight}
-                                        helperText={isOverweight ? `Exceeds max capacity (${selectedVehicleObj?.max_load_capacity}kg)` : ''}
+                                        helperText={isOverweight ? 'Too heavy!' : ''}
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={4}>

@@ -33,7 +33,7 @@ class Trip(models.Model):
     def _check_weight(self):
         for rec in self:
             if rec.cargo_weight > rec.vehicle_id.max_load_capacity:
-                raise ValidationError(f"Cargo weight {rec.cargo_weight} exceeds vehicle capacity {rec.vehicle_id.max_load_capacity}")
+                raise ValidationError("Too heavy!")
 
     @api.constrains('vehicle_id')
     def _check_vehicle_status(self):
