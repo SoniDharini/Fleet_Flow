@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vehicle_manager,vehicle_manager,model_fleetflow_vehicle,group_fleet_manager,1,1,1,1
+access_vehicle_dispatcher,vehicle_dispatcher,model_fleetflow_vehicle,group_fleet_dispatcher,1,0,0,0
+access_vehicle_finance,vehicle_finance,model_fleetflow_vehicle,group_fleet_finance,1,0,0,0
+
+access_driver_manager,driver_manager,model_fleetflow_driver,group_fleet_manager,1,1,1,1
+access_driver_dispatcher,driver_dispatcher,model_fleetflow_driver,group_fleet_dispatcher,1,0,0,0
+access_driver_safety,driver_safety,model_fleetflow_driver,group_fleet_safety,1,1,0,0
+
+access_trip_manager,trip_manager,model_fleetflow_trip,group_fleet_manager,1,1,1,1
+access_trip_dispatcher,trip_dispatcher,model_fleetflow_trip,group_fleet_dispatcher,1,1,1,0
+
+access_maintenance_manager,maintenance_manager,model_fleetflow_maintenance_log,group_fleet_manager,1,1,1,1
+
+access_fuel_manager,fuel_manager,model_fleetflow_fuel_log,group_fleet_manager,1,1,1,1
+access_fuel_finance,fuel_finance,model_fleetflow_fuel_log,group_fleet_finance,1,0,0,0
