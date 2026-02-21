@@ -106,7 +106,7 @@ export default function Login() {
           <form onSubmit={handleLogin}>
             <TextField
               fullWidth
-              label="Email/Username"
+              label="Email"
               margin="normal"
               variant="outlined"
               value={email}
