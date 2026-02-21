@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Box, Drawer, List, ListItemText, AppBar, Toolbar, Typography, Button, IconButton, Badge, Avatar, ListItemButton, ListItemIcon } from '@mui/material';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
 import {
   Menu as MenuIcon,
   Notifications as NotificationsIcon,
@@ -21,6 +22,13 @@ export default function Layout() {
   const navigate = useNavigate();
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const { data: user } = useQuery({
+    queryKey: ['user'],
+    queryFn: async () => (await axios.get('/api/auth/me')).data
+  });
+  const userName = user?.name || 'Loading...';
+  const userInitial = user?.name ? user.name.charAt(0).toUpperCase() : '';
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -136,8 +144,8 @@ export default function Layout() {
             </Badge>
           </IconButton>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, background: 'rgba(30, 41, 59, 0.5)', p: 0.5, pr: 2, borderRadius: '24px', border: '1px solid rgba(255,255,255,0.05)' }}>
-            <Avatar sx={{ width: 32, height: 32, bgcolor: '#3B82F6' }}>A</Avatar>
-            <Typography variant="body2" fontWeight="500">Admin</Typography>
+            <Avatar sx={{ width: 32, height: 32, bgcolor: '#3B82F6' }}>{userInitial}</Avatar>
+            <Typography variant="body2" fontWeight="500">{userName}</Typography>
           </Box>
         </Toolbar>
       </AppBar>
