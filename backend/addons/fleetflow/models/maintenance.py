@@ -23,4 +23,10 @@ class MaintenanceLog(models.Model):
         for rec in self:
             rec.state = 'Done'
             if rec.vehicle_id.status != 'Retired':
-                rec.vehicle_id.status = 'Available'
+                open_logs = self.search_count([
+                    ('vehicle_id', '=', rec.vehicle_id.id),
+                    ('state', '=', 'Open'),
+                    ('id', '!=', rec.id)
+                ])
+                if open_logs == 0:
+                    rec.vehicle_id.status = 'Available'
