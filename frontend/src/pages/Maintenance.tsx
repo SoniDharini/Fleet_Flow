@@ -30,7 +30,7 @@ export default function Maintenance() {
         { field: 'date', headerName: 'Service Date', width: 140 },
         { field: 'vehicle_name', headerName: 'Vehicle', flex: 1, minWidth: 150 },
         { field: 'service_type', headerName: 'Service Type', flex: 1, minWidth: 150 },
-        { field: 'cost', headerName: 'Cost ($)', width: 130, type: 'number', align: 'left', headerAlign: 'left' },
+        { field: 'cost', headerName: 'Cost (₹)', width: 130, type: 'number', align: 'left', headerAlign: 'left' },
         {
             field: 'state',
             headerName: 'Status',
@@ -47,6 +47,30 @@ export default function Maintenance() {
                     }}
                 />
             )
+        },
+        {
+            field: 'action',
+            headerName: 'Resolve',
+            width: 150,
+            renderCell: (params: GridRenderCellParams) => {
+                if (params.row.state === 'Done') return null;
+                const canManage = ['manager', 'finance'].includes(localStorage.getItem('activeRole') || '');
+                if (!canManage) return null;
+                return (
+                    <Button
+                        size="small"
+                        color="success"
+                        variant="outlined"
+                        onClick={async () => {
+                            await axios.post('/api/maintenance/action', { log_id: params.row.id });
+                            queryClient.invalidateQueries({ queryKey: ['maintenance'] });
+                            queryClient.invalidateQueries({ queryKey: ['vehicles'] });
+                        }}
+                    >
+                        Complete
+                    </Button>
+                );
+            }
         },
     ];
 
@@ -77,7 +101,7 @@ export default function Maintenance() {
                         </Box>
                         <Box>
                             <Typography variant="body2" color="text.secondary" fontWeight="600">Total Maintenance Cost</Typography>
-                            <Typography variant="h4" fontWeight="bold" sx={{ color: '#fff' }}>${totalCost.toFixed(2)}</Typography>
+                            <Typography variant="h4" fontWeight="bold" sx={{ color: '#fff' }}>₹{totalCost.toFixed(2)}</Typography>
                         </Box>
                     </Paper>
                 </Grid>
@@ -111,20 +135,22 @@ export default function Maintenance() {
                 />
             </Box>
 
-            <Fab
-                sx={{
-                    position: 'fixed',
-                    bottom: 40,
-                    right: 40,
-                    background: 'linear-gradient(135deg, #F59E0B 0%, #EA580C 100%)',
-                    color: '#fff',
-                    boxShadow: '0 4px 20px rgba(245, 158, 11, 0.5)'
-                }}
-                aria-label="add"
-                onClick={() => setOpen(true)}
-            >
-                <AddIcon />
-            </Fab>
+            {['manager', 'finance'].includes(localStorage.getItem('activeRole') || '') && (
+                <Fab
+                    sx={{
+                        position: 'fixed',
+                        bottom: 40,
+                        right: 40,
+                        background: 'linear-gradient(135deg, #F59E0B 0%, #EA580C 100%)',
+                        color: '#fff',
+                        boxShadow: '0 4px 20px rgba(245, 158, 11, 0.5)'
+                    }}
+                    aria-label="add"
+                    onClick={() => setOpen(true)}
+                >
+                    <AddIcon />
+                </Fab>
+            )}
 
             <Dialog open={open} onClose={() => setOpen(false)} PaperProps={{
                 sx: { background: 'rgba(30, 41, 59, 0.9)', backdropFilter: 'blur(20px)', border: '1px solid #F59E0B', borderRadius: 3 }
@@ -137,7 +163,7 @@ export default function Maintenance() {
                         ))}
                     </TextField>
                     <TextField fullWidth margin="dense" label="Service Type" value={newLog.service_type} onChange={(e) => setNewLog({ ...newLog, service_type: e.target.value })} sx={{ mb: 2 }} />
-                    <TextField fullWidth margin="dense" label="Cost ($)" type="number" value={newLog.cost} onChange={(e) => setNewLog({ ...newLog, cost: e.target.value })} sx={{ mb: 2 }} />
+                    <TextField fullWidth margin="dense" label="Cost (₹)" type="number" value={newLog.cost} onChange={(e) => setNewLog({ ...newLog, cost: e.target.value })} sx={{ mb: 2 }} />
                     <TextField fullWidth margin="dense" label="Notes" multiline rows={3} value={newLog.notes} onChange={(e) => setNewLog({ ...newLog, notes: e.target.value })} />
                 </DialogContent>
                 <DialogActions sx={{ p: 3 }}>

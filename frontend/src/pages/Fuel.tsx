@@ -30,7 +30,7 @@ export default function Fuel() {
         { field: 'date', headerName: 'Date', width: 140 },
         { field: 'vehicle_name', headerName: 'Vehicle', flex: 1 },
         { field: 'liters', headerName: 'Liters', width: 130, type: 'number', align: 'left', headerAlign: 'left' },
-        { field: 'cost', headerName: 'Cost ($)', width: 130, type: 'number', align: 'left', headerAlign: 'left' },
+        { field: 'cost', headerName: 'Cost (₹)', width: 130, type: 'number', align: 'left', headerAlign: 'left' },
         { field: 'odometer_at_fill', headerName: 'Odometer (km)', width: 150, type: 'number', align: 'left', headerAlign: 'left' },
     ];
 
@@ -90,7 +90,7 @@ export default function Fuel() {
                         </Box>
                         <Box>
                             <Typography variant="body2" color="text.secondary" fontWeight="600">Total Fuel Cost</Typography>
-                            <Typography variant="h4" fontWeight="bold" sx={{ color: '#fff' }}>${totalFuelCost.toFixed(2)}</Typography>
+                            <Typography variant="h4" fontWeight="bold" sx={{ color: '#fff' }}>₹{totalFuelCost.toFixed(2)}</Typography>
                         </Box>
                     </Paper>
                 </Grid>
@@ -138,18 +138,20 @@ export default function Fuel() {
                 />
             </Box>
 
-            <Fab
-                sx={{
-                    position: 'fixed',
-                    bottom: 40,
-                    right: 40,
-                    background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
-                    color: '#fff',
-                }}
-                onClick={() => setOpen(true)}
-            >
-                <AddIcon />
-            </Fab>
+            {['manager', 'finance'].includes(localStorage.getItem('activeRole') || '') && (
+                <Fab
+                    sx={{
+                        position: 'fixed',
+                        bottom: 40,
+                        right: 40,
+                        background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+                        color: '#fff',
+                    }}
+                    onClick={() => setOpen(true)}
+                >
+                    <AddIcon />
+                </Fab>
+            )}
 
             <Dialog open={open} onClose={() => setOpen(false)} PaperProps={{
                 sx: { background: 'rgba(30, 41, 59, 0.9)', backdropFilter: 'blur(20px)', border: '1px solid #10B981', borderRadius: 3 }
@@ -162,7 +164,7 @@ export default function Fuel() {
                         ))}
                     </TextField>
                     <TextField fullWidth margin="dense" label="Liters" type="number" value={newLog.liters} onChange={(e) => setNewLog({ ...newLog, liters: e.target.value })} sx={{ mb: 2 }} />
-                    <TextField fullWidth margin="dense" label="Cost ($)" type="number" value={newLog.cost} onChange={(e) => setNewLog({ ...newLog, cost: e.target.value })} sx={{ mb: 2 }} />
+                    <TextField fullWidth margin="dense" label="Cost (₹)" type="number" value={newLog.cost} onChange={(e) => setNewLog({ ...newLog, cost: e.target.value })} sx={{ mb: 2 }} />
                     <TextField fullWidth margin="dense" label="Odometer at Fill (km)" type="number" value={newLog.odometer_at_fill} onChange={(e) => setNewLog({ ...newLog, odometer_at_fill: e.target.value })} sx={{ mb: 2 }} />
                 </DialogContent>
                 <DialogActions sx={{ p: 3 }}>

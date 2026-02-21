@@ -14,7 +14,7 @@ export default function Vehicles() {
   const queryClient = useQueryClient();
   const { data, isLoading } = useQuery({ queryKey: ['vehicles'], queryFn: fetchVehicles });
   const [open, setOpen] = useState(false);
-  const [newVehicle, setNewVehicle] = useState({ name: '', license_plate: '', vehicle_type: 'car', max_load_capacity: '', region: 'North America' });
+  const [newVehicle, setNewVehicle] = useState({ name: '', license_plate: '', vehicle_type: 'car', max_load_capacity: '', region: 'North India' });
   const [searchTerm, setSearchTerm] = useState('');
 
   const mutation = useMutation({
@@ -22,7 +22,7 @@ export default function Vehicles() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['vehicles'] });
       setOpen(false);
-      setNewVehicle({ name: '', license_plate: '', vehicle_type: 'car', max_load_capacity: '', region: 'North America' });
+      setNewVehicle({ name: '', license_plate: '', vehicle_type: 'car', max_load_capacity: '', region: 'North India' });
     }
   });
 
@@ -71,13 +71,29 @@ export default function Vehicles() {
       headerName: 'Service Toggle',
       width: 150,
       sortable: false,
-      renderCell: (params: GridRenderCellParams) => (
-        <FormControlLabel
-          control={<Switch size="small" checked={params.row.status === 'Retired' || params.row.status === 'In Shop'} color="error" />}
-          label="Out of Service"
-          componentsProps={{ typography: { variant: 'body2' } }}
-        />
-      )
+      renderCell: (params: GridRenderCellParams) => {
+        const isOut = params.row.status === 'Retired' || params.row.status === 'In Shop';
+        const isDisabled = params.row.status === 'In Shop' || localStorage.getItem('activeRole') !== 'manager';
+        return (
+          <FormControlLabel
+            control={
+              <Switch
+                size="small"
+                checked={isOut}
+                color="error"
+                disabled={isDisabled}
+                onChange={async (e) => {
+                  const newStatus = e.target.checked ? 'Retired' : 'Available';
+                  await axios.post('/api/vehicles/action', { vehicle_id: params.row.id, status: newStatus });
+                  queryClient.invalidateQueries({ queryKey: ['vehicles'] });
+                }}
+              />
+            }
+            label={params.row.status === 'In Shop' ? "In Shop" : "Out of Service"}
+            componentsProps={{ typography: { variant: 'body2' } }}
+          />
+        );
+      }
     }
   ];
 
@@ -137,20 +153,22 @@ export default function Vehicles() {
         />
       </Box>
 
-      <Fab
-        sx={{
-          position: 'fixed',
-          bottom: 40,
-          right: 40,
-          background: 'linear-gradient(135deg, #3B82F6 0%, #22D3EE 100%)',
-          color: '#fff',
-          boxShadow: '0 4px 20px rgba(34, 211, 238, 0.5)'
-        }}
-        aria-label="add"
-        onClick={() => setOpen(true)}
-      >
-        <AddIcon />
-      </Fab>
+      {localStorage.getItem('activeRole') === 'manager' && (
+        <Fab
+          sx={{
+            position: 'fixed',
+            bottom: 40,
+            right: 40,
+            background: 'linear-gradient(135deg, #3B82F6 0%, #22D3EE 100%)',
+            color: '#fff',
+            boxShadow: '0 4px 20px rgba(34, 211, 238, 0.5)'
+          }}
+          aria-label="add"
+          onClick={() => setOpen(true)}
+        >
+          <AddIcon />
+        </Fab>
+      )}
 
       <Dialog open={open} onClose={() => setOpen(false)} PaperProps={{
         sx: {

@@ -1,22 +1,61 @@
 import React, { useState } from 'react';
-import { Box, Button, TextField, Typography, Paper, Link, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
+import { Box, Button, TextField, Typography, Paper, Link, Select, MenuItem, InputLabel, FormControl, IconButton, InputAdornment } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('fleet_manager');
+  const [availableRoles, setAvailableRoles] = useState<string[]>([]);
+  const [selectedRole, setSelectedRole] = useState('');
+  const [step, setStep] = useState(1);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+
+  const getDashboardRoute = (role: string) => {
+    if (role === 'manager') return '/manager/dashboard';
+    if (role === 'dispatcher') return '/dispatcher/dashboard';
+    if (role === 'safety') return '/safety/dashboard';
+    if (role === 'finance') return '/finance/dashboard';
+    return '/dashboard';
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.post('/api/auth/login', { login: email, password });
-      navigate('/dashboard');
+      const { data } = await axios.post('/api/auth/login', { login: email, password });
+      const roles = data.roles || [];
+      if (roles.length === 0) {
+        alert("You have no assigned roles.");
+        return;
+      }
+      localStorage.setItem('allowedRoles', JSON.stringify(roles));
+
+      if (roles.length === 1) {
+        localStorage.setItem('activeRole', roles[0]);
+        navigate(getDashboardRoute(roles[0]));
+      } else {
+        setAvailableRoles(roles);
+        setSelectedRole(roles[0]);
+        setStep(2);
+      }
     } catch (err) {
       alert("Invalid credentials / Server offline");
     }
+  };
+
+  const handleSelectRole = (e: React.FormEvent) => {
+    e.preventDefault();
+    localStorage.setItem('activeRole', selectedRole);
+    navigate(getDashboardRoute(selectedRole));
+  };
+
+  const roleNameMap: Record<string, string> = {
+    'manager': 'Fleet Manager',
+    'dispatcher': 'Dispatcher',
+    'safety': 'Safety Officer',
+    'finance': 'Financial Analyst'
   };
 
   return (
@@ -29,7 +68,7 @@ export default function Login() {
       position: 'relative',
       overflow: 'hidden'
     }}>
-      {/* Abstract Logistics Network Lines Background (CSS simulated) */}
+      {/* Abstract Logistics Network Lines Background */}
       <Box sx={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, opacity: 0.1, pointerEvents: 'none' }}>
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -63,66 +102,98 @@ export default function Login() {
           Logistics Management System
         </Typography>
 
-        <form onSubmit={handleLogin}>
-          <TextField
-            fullWidth
-            label="Email/Login"
-            margin="normal"
-            variant="outlined"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            sx={{ mb: 2 }}
-          />
-          <TextField
-            fullWidth
-            label="Password"
-            type="password"
-            margin="normal"
-            variant="outlined"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            sx={{ mb: 3 }}
-          />
-
-          <FormControl fullWidth sx={{ mb: 4, textAlign: 'left' }}>
-            <InputLabel id="role-label">Role</InputLabel>
-            <Select
-              labelId="role-label"
-              value={role}
-              label="Role"
-              onChange={(e) => setRole(e.target.value)}
+        {step === 1 ? (
+          <form onSubmit={handleLogin}>
+            <TextField
+              fullWidth
+              label="Email/Username"
+              margin="normal"
+              variant="outlined"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              fullWidth
+              label="Password"
+              type={showPassword ? 'text' : 'password'}
+              margin="normal"
+              variant="outlined"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              sx={{ mb: 3 }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setShowPassword(!showPassword)}
+                      edge="end"
+                      sx={{ color: '#94A3B8' }}
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                )
+              }}
+            />
+            <Button
+              fullWidth
+              variant="contained"
+              type="submit"
+              size="large"
+              sx={{
+                py: 1.5,
+                mb: 2,
+                fontSize: '1rem',
+                background: 'linear-gradient(90deg, #3B82F6 0%, #22D3EE 100%)',
+                boxShadow: '0 0 15px rgba(34, 211, 238, 0.4)',
+                '&:hover': { boxShadow: '0 0 25px rgba(34, 211, 238, 0.6)' }
+              }}
             >
-              <MenuItem value="fleet_manager">Fleet Manager</MenuItem>
-              <MenuItem value="dispatcher">Dispatcher</MenuItem>
-              <MenuItem value="safety_officer">Safety Officer</MenuItem>
-              <MenuItem value="financial_analyst">Financial Analyst</MenuItem>
-            </Select>
-          </FormControl>
-
-          <Button
-            fullWidth
-            variant="contained"
-            type="submit"
-            size="large"
-            sx={{
-              py: 1.5,
-              fontSize: '1rem',
-              background: 'linear-gradient(90deg, #3B82F6 0%, #22D3EE 100%)',
-              boxShadow: '0 0 15px rgba(34, 211, 238, 0.4)',
-              '&:hover': {
-                boxShadow: '0 0 25px rgba(34, 211, 238, 0.6)',
-              }
-            }}
-          >
-            Access System
-          </Button>
-
-          <Box mt={3}>
-            <Link href="#" underline="hover" color="#94A3B8" sx={{ fontSize: '0.875rem' }}>
-              Forgot Password?
-            </Link>
-          </Box>
-        </form>
+              Access System
+            </Button>
+            <Typography variant="body2" color="text.secondary" sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Link href="/register" underline="hover" color="inherit">
+                Don't have an account? Register here
+              </Link>
+              <Link href="#" underline="hover" color="inherit">
+                Forgot Password?
+              </Link>
+            </Typography>
+          </form>
+        ) : (
+          <form onSubmit={handleSelectRole}>
+            <Typography variant="h6" color="#F8FAFC" mb={2}>Select Workspace</Typography>
+            <FormControl fullWidth sx={{ mb: 4, textAlign: 'left' }}>
+              <InputLabel id="role-label">Role Workspace</InputLabel>
+              <Select
+                labelId="role-label"
+                value={selectedRole}
+                label="Role Workspace"
+                onChange={(e) => setSelectedRole(e.target.value)}
+              >
+                {availableRoles.map(r => (
+                  <MenuItem key={r} value={r}>{roleNameMap[r] || r}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <Button
+              fullWidth
+              variant="contained"
+              type="submit"
+              size="large"
+              sx={{
+                py: 1.5,
+                fontSize: '1rem',
+                background: 'linear-gradient(90deg, #10B981 0%, #34D399 100%)',
+                boxShadow: '0 0 15px rgba(16, 185, 129, 0.4)',
+                '&:hover': { boxShadow: '0 0 25px rgba(16, 185, 129, 0.6)' }
+              }}
+            >
+              Enter Workspace
+            </Button>
+          </form>
+        )}
       </Paper>
     </Box>
   );

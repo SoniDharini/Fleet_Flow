@@ -7,42 +7,169 @@
             <field name="padding">5</field>
         </record>
 
+        <record id="user_manager" model="res.users">
+            <field name="name">Manager Demo</field>
+            <field name="login">manager</field>
+            <field name="password">manager</field>
+            <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('fleetflow.group_fleet_manager')])]"/>
+        </record>
+        <record id="user_dispatcher" model="res.users">
+            <field name="name">Dispatcher Demo</field>
+            <field name="login">dispatcher</field>
+            <field name="password">dispatcher</field>
+            <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('fleetflow.group_dispatcher')])]"/>
+        </record>
+        <record id="user_safety" model="res.users">
+            <field name="name">Safety Demo</field>
+            <field name="login">safety</field>
+            <field name="password">safety</field>
+            <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('fleetflow.group_safety_officer')])]"/>
+        </record>
+        <record id="user_finance" model="res.users">
+            <field name="name">Finance Demo</field>
+            <field name="login">finance</field>
+            <field name="password">finance</field>
+            <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('fleetflow.group_financial_analyst')])]"/>
+        </record>
+
+        <!-- Vehicles -->
         <record id="vehicle_1" model="fleetflow.vehicle">
-            <field name="name">Ford Transit</field>
-            <field name="license_plate">XYZ-1234</field>
+            <field name="name">Tata Ace Gold</field>
+            <field name="license_plate">MH-01-AB-1234</field>
             <field name="vehicle_type">van</field>
-            <field name="region">North</field>
-            <field name="max_load_capacity">1500</field>
-            <field name="acquisition_cost">35000</field>
+            <field name="region">West India</field>
+            <field name="max_load_capacity">750</field>
+            <field name="acquisition_cost">450000</field>
             <field name="odometer">12540</field>
         </record>
         <record id="vehicle_2" model="fleetflow.vehicle">
-            <field name="name">Volvo FH16</field>
-            <field name="license_plate">TRK-9988</field>
+            <field name="name">Ashok Leyland Dost</field>
+            <field name="license_plate">DL-4C-XY-9988</field>
             <field name="vehicle_type">truck</field>
-            <field name="region">South</field>
-            <field name="max_load_capacity">25000</field>
-            <field name="acquisition_cost">120000</field>
+            <field name="region">North India</field>
+            <field name="max_load_capacity">1250</field>
+            <field name="acquisition_cost">750000</field>
             <field name="odometer">56000</field>
         </record>
+        <record id="vehicle_3" model="fleetflow.vehicle">
+            <field name="name">Mahindra Bolero Pik-Up</field>
+            <field name="license_plate">KA-03-MK-7777</field>
+            <field name="vehicle_type">truck</field>
+            <field name="region">South India</field>
+            <field name="max_load_capacity">1500</field>
+            <field name="acquisition_cost">850000</field>
+            <field name="odometer">24000</field>
+        </record>
+        <record id="vehicle_4" model="fleetflow.vehicle">
+            <field name="name">Tata Signa</field>
+            <field name="license_plate">WB-04-BB-4567</field>
+            <field name="vehicle_type">truck</field>
+            <field name="region">East India</field>
+            <field name="max_load_capacity">25000</field>
+            <field name="acquisition_cost">3500000</field>
+            <field name="odometer">120000</field>
+        </record>
+        <record id="vehicle_5" model="fleetflow.vehicle">
+            <field name="name">Maruti Suzuki Super Carry</field>
+            <field name="license_plate">KL-07-CM-1122</field>
+            <field name="vehicle_type">van</field>
+            <field name="region">South India</field>
+            <field name="max_load_capacity">740</field>
+            <field name="acquisition_cost">520000</field>
+            <field name="odometer">45000</field>
+        </record>
 
+        <!-- Drivers -->
         <record id="driver_1" model="fleetflow.driver">
-            <field name="name">John Doe</field>
+            <field name="name">Rahul Sharma</field>
             <field name="license_number">DL-123456</field>
             <field name="license_expiry_date">2030-12-31</field>
             <field name="safety_score">95</field>
+            <field name="status">On Duty</field>
+        </record>
+        <record id="driver_2" model="fleetflow.driver">
+            <field name="name">Arun Kumar</field>
+            <field name="license_number">KA-567890</field>
+            <field name="license_expiry_date">2027-05-15</field>
+            <field name="safety_score">88</field>
+            <field name="status">On Duty</field>
+        </record>
+        <record id="driver_3" model="fleetflow.driver">
+            <field name="name">Ramesh Singh</field>
+            <field name="license_number">MH-654321</field>
+            <field name="license_expiry_date">2029-08-20</field>
+            <field name="safety_score">92</field>
+            <field name="status">Off Duty</field>
         </record>
 
+        <!-- Trips -->
         <record id="trip_1" model="fleetflow.trip">
             <field name="vehicle_id" ref="vehicle_1"/>
             <field name="driver_id" ref="driver_1"/>
-            <field name="source">Warehouse A</field>
-            <field name="destination">Store B</field>
+            <field name="source">Mumbai Hub</field>
+            <field name="destination">Pune Branch</field>
             <field name="planned_start_date">2026-02-22 08:00:00</field>
-            <field name="cargo_weight">1000</field>
-            <field name="distance_km">250</field>
-            <field name="revenue">500</field>
+            <field name="cargo_weight">500</field>
+            <field name="distance_km">150</field>
+            <field name="revenue">15000</field>
             <field name="state">Dispatched</field>
         </record>
+        <record id="trip_2" model="fleetflow.trip">
+            <field name="vehicle_id" ref="vehicle_2"/>
+            <field name="driver_id" ref="driver_2"/>
+            <field name="source">Delhi Depot</field>
+            <field name="destination">Chandigarh</field>
+            <field name="planned_start_date">2026-02-20 10:00:00</field>
+            <field name="cargo_weight">1000</field>
+            <field name="distance_km">250</field>
+            <field name="revenue">28000</field>
+            <field name="state">Completed</field>
+        </record>
+        <record id="trip_3" model="fleetflow.trip">
+            <field name="vehicle_id" ref="vehicle_3"/>
+            <field name="driver_id" ref="driver_1"/>
+            <field name="source">Bengaluru Central</field>
+            <field name="destination">Mysuru Store</field>
+            <field name="planned_start_date">2026-02-25 07:00:00</field>
+            <field name="cargo_weight">800</field>
+            <field name="distance_km">140</field>
+            <field name="revenue">12000</field>
+            <field name="state">Draft</field>
+        </record>
+
+        <!-- Fuel Logs -->
+        <record id="fuel_1" model="fleetflow.fuel_log">
+            <field name="vehicle_id" ref="vehicle_1"/>
+            <field name="liters">30</field>
+            <field name="cost">3000</field>
+            <field name="odometer_at_fill">12000</field>
+            <field name="date">2026-02-15</field>
+        </record>
+        <record id="fuel_2" model="fleetflow.fuel_log">
+            <field name="vehicle_id" ref="vehicle_2"/>
+            <field name="liters">80</field>
+            <field name="cost">8000</field>
+            <field name="odometer_at_fill">55500</field>
+            <field name="date">2026-02-18</field>
+        </record>
+
+        <!-- Maintenance Logs -->
+        <record id="maint_1" model="fleetflow.maintenance_log">
+            <field name="vehicle_id" ref="vehicle_4"/>
+            <field name="service_type">Engine Oil Change</field>
+            <field name="cost">12000</field>
+            <field name="notes">Routine maintenance</field>
+            <field name="date">2026-02-10</field>
+            <field name="state">Done</field>
+        </record>
+        <record id="maint_2" model="fleetflow.maintenance_log">
+            <field name="vehicle_id" ref="vehicle_5"/>
+            <field name="service_type">Brake Replacement</field>
+            <field name="cost">8500</field>
+            <field name="notes">Front brakes severely worn</field>
+            <field name="date">2026-02-21</field>
+            <field name="state">Open</field>
+        </record>
+
     </data>
 </odoo>

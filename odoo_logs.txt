@@ -1,0 +1,1820 @@
+﻿odoo-1  | 2026-02-21 05:39:55,118 1 INFO ? odoo: Odoo version 17.0-20260217 
+odoo-1  | 2026-02-21 05:39:55,119 1 INFO ? odoo: Using configuration file at /etc/odoo/odoo.conf 
+odoo-1  | 2026-02-21 05:39:55,119 1 INFO ? odoo: addons paths: ['/usr/lib/python3/dist-packages/odoo/addons', '/var/lib/odoo/addons/17.0', '/mnt/extra-addons'] 
+odoo-1  | 2026-02-21 05:39:55,119 1 INFO ? odoo: database: odoo@db:5432 
+odoo-1  | 2026-02-21 05:39:55,275 1 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltopdf binary at /usr/local/bin/wkhtmltopdf 
+odoo-1  | 2026-02-21 05:39:55,608 1 INFO ? odoo.service.server: Watching addons folder /usr/lib/python3/dist-packages/odoo/addons 
+odoo-1  | 2026-02-21 05:39:55,609 1 INFO ? odoo.service.server: Watching addons folder /var/lib/odoo/addons/17.0 
+odoo-1  | 2026-02-21 05:39:55,609 1 INFO ? odoo.service.server: Watching addons folder /mnt/extra-addons 
+odoo-1  | 2026-02-21 05:39:58,576 1 INFO ? odoo.service.server: AutoReload watcher running with watchdog 
+odoo-1  | 2026-02-21 05:39:58,577 1 INFO ? odoo.service.server: HTTP service (werkzeug) running on 9dd2b32cc165:8069 
+odoo-1  | 2026-02-21 05:39:58,675 1 INFO fleet_flow odoo.modules.loading: loading 1 modules... 
+odoo-1  | 2026-02-21 05:39:58,683 1 INFO fleet_flow odoo.modules.loading: 1 modules loaded in 0.01s, 0 queries (+0 extra) 
+odoo-1  | 2026-02-21 05:39:58,724 1 INFO fleet_flow odoo.modules.loading: updating modules list 
+odoo-1  | 2026-02-21 05:39:58,738 1 INFO fleet_flow odoo.addons.base.models.ir_module: ALLOW access to module.update_list on [] to user __system__ #1 via n/a 
+odoo-1  | 2026-02-21 05:40:00,718 1 INFO fleet_flow odoo.modules.loading: loading 24 modules... 
+odoo-1  | 2026-02-21 05:40:00,959 1 INFO fleet_flow odoo.modules.loading: Loading module fleetflow (15/24) 
+odoo-1  | 2026-02-21 05:40:01,151 1 INFO fleet_flow odoo.modules.registry: module fleetflow: creating or updating database tables 
+odoo-1  | 2026-02-21 05:40:01,257 1 INFO fleet_flow odoo.modules.loading: loading fleetflow/security/security.xml 
+odoo-1  | 2026-02-21 05:40:01,331 1 ERROR fleet_flow odoo.sql_db: bad query: INSERT INTO "res_groups" ("category_id", "create_date", "create_uid", "name", "write_date", "write_uid") VALUES (92, '2026-02-21 05:39:58.658698', 1, '{"en_US": "Dispatcher"}', '2026-02-21 05:39:58.658698', 1) RETURNING "id"
+odoo-1  | ERROR: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  |  
+odoo-1  | 2026-02-21 05:40:01,336 1 WARNING fleet_flow odoo.modules.loading: Transient module states were reset 
+odoo-1  | 2026-02-21 05:40:01,336 1 ERROR fleet_flow odoo.modules.registry: Failed to load registry 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 464, in _tag_record
+odoo-1  |     record = model._load_records([data], self.mode == 'update')
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5117, in _load_records
+odoo-1  |     records = self._load_records_create([data['values'] for data in to_create])
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5028, in _load_records_create
+odoo-1  |     return self.create(values)
+odoo-1  |   File "<decorator-gen-112>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1505, in create
+odoo-1  |     groups = super().create(vals_list)
+odoo-1  |   File "<decorator-gen-110>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1364, in create
+odoo-1  |     groups = super(GroupsImplied, self).create(vals_list)
+odoo-1  |   File "<decorator-gen-12>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4656, in create
+odoo-1  |     records = self._create(data_list)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4844, in _create
+odoo-1  |     cr.execute(SQL(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 342, in execute
+odoo-1  |     res = self._obj.execute(query, params)
+odoo-1  | psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  | 
+odoo-1  | 
+odoo-1  | The above exception was the direct cause of the following exception:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 110, in new
+odoo-1  |     odoo.modules.load_modules(registry, force_demo, status, update_module)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 481, in load_modules
+odoo-1  |     processed_modules += load_marked_modules(env, graph,
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 366, in load_marked_modules
+odoo-1  |     loaded, processed = load_module_graph(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 229, in load_module_graph
+odoo-1  |     load_data(env, idref, mode, kind='data', package=package)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 73, in load_data
+odoo-1  |     tools.convert_file(env, package.name, filename, idref, mode, noupdate, kind)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 682, in convert_file
+odoo-1  |     convert_xml_import(env, module, fp, idref, mode, noupdate)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 748, in convert_xml_import
+odoo-1  |     obj.parse(doc.getroot())
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 668, in parse
+odoo-1  |     self._tag_root(de)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 623, in _tag_root
+odoo-1  |     raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo-1  | odoo.tools.convert.ParseError: while parsing /mnt/extra-addons/fleetflow/security/security.xml:9, somewhere inside
+odoo-1  | <record id="group_dispatcher" model="res.groups">
+odoo-1  |             <field name="name">Dispatcher</field>
+odoo-1  |             <field name="category_id" ref="module_category_fleetflow"/>
+odoo-1  |         </record>
+odoo-1  | 2026-02-21 05:40:01,344 1 CRITICAL fleet_flow odoo.service.server: Failed to initialize database `fleet_flow`. 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 464, in _tag_record
+odoo-1  |     record = model._load_records([data], self.mode == 'update')
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5117, in _load_records
+odoo-1  |     records = self._load_records_create([data['values'] for data in to_create])
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5028, in _load_records_create
+odoo-1  |     return self.create(values)
+odoo-1  |   File "<decorator-gen-112>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1505, in create
+odoo-1  |     groups = super().create(vals_list)
+odoo-1  |   File "<decorator-gen-110>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1364, in create
+odoo-1  |     groups = super(GroupsImplied, self).create(vals_list)
+odoo-1  |   File "<decorator-gen-12>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4656, in create
+odoo-1  |     records = self._create(data_list)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4844, in _create
+odoo-1  |     cr.execute(SQL(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 342, in execute
+odoo-1  |     res = self._obj.execute(query, params)
+odoo-1  | psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  | 
+odoo-1  | 
+odoo-1  | The above exception was the direct cause of the following exception:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/service/server.py", line 1374, in preload_registries
+odoo-1  |     registry = Registry.new(dbname, update_module=update_module)
+odoo-1  |   File "<decorator-gen-16>", line 2, in new
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 110, in new
+odoo-1  |     odoo.modules.load_modules(registry, force_demo, status, update_module)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 481, in load_modules
+odoo-1  |     processed_modules += load_marked_modules(env, graph,
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 366, in load_marked_modules
+odoo-1  |     loaded, processed = load_module_graph(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 229, in load_module_graph
+odoo-1  |     load_data(env, idref, mode, kind='data', package=package)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 73, in load_data
+odoo-1  |     tools.convert_file(env, package.name, filename, idref, mode, noupdate, kind)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 682, in convert_file
+odoo-1  |     convert_xml_import(env, module, fp, idref, mode, noupdate)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 748, in convert_xml_import
+odoo-1  |     obj.parse(doc.getroot())
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 668, in parse
+odoo-1  |     self._tag_root(de)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 623, in _tag_root
+odoo-1  |     raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo-1  | odoo.tools.convert.ParseError: while parsing /mnt/extra-addons/fleetflow/security/security.xml:9, somewhere inside
+odoo-1  | <record id="group_dispatcher" model="res.groups">
+odoo-1  |             <field name="name">Dispatcher</field>
+odoo-1  |             <field name="category_id" ref="module_category_fleetflow"/>
+odoo-1  |         </record>
+odoo-1  | 2026-02-21 05:40:03,540 1 INFO ? odoo.modules.loading: loading 1 modules... 
+odoo-1  | 2026-02-21 05:40:03,547 1 INFO ? odoo.modules.loading: 1 modules loaded in 0.01s, 0 queries (+0 extra) 
+odoo-1  | 2026-02-21 05:40:03,550 1 INFO ? odoo.modules.loading: loading 24 modules... 
+odoo-1  | 2026-02-21 05:40:03,560 1 INFO ? odoo.modules.loading: Loading module fleetflow (15/24) 
+odoo-1  | 2026-02-21 05:40:03,622 1 INFO ? odoo.modules.registry: module fleetflow: creating or updating database tables 
+odoo-1  | 2026-02-21 05:40:03,656 1 INFO ? odoo.modules.loading: loading fleetflow/security/security.xml 
+odoo-1  | 2026-02-21 05:40:03,696 1 ERROR ? odoo.sql_db: bad query: INSERT INTO "res_groups" ("category_id", "create_date", "create_uid", "name", "write_date", "write_uid") VALUES (92, '2026-02-21 05:40:03.539305', 1, '{"en_US": "Dispatcher"}', '2026-02-21 05:40:03.539305', 1) RETURNING "id"
+odoo-1  | ERROR: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  |  
+odoo-1  | 2026-02-21 05:40:03,699 1 WARNING ? odoo.modules.loading: Transient module states were reset 
+odoo-1  | 2026-02-21 05:40:03,699 1 ERROR ? odoo.modules.registry: Failed to load registry 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 87, in __new__
+odoo-1  |     return cls.registries[db_name]
+odoo-1  |   File "<decorator-gen-5>", line 2, in __getitem__
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/lru.py", line 34, in __getitem__
+odoo-1  |     a = self.d[obj]
+odoo-1  | KeyError: 'fleet_flow'
+odoo-1  | 
+odoo-1  | During handling of the above exception, another exception occurred:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 464, in _tag_record
+odoo-1  |     record = model._load_records([data], self.mode == 'update')
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5117, in _load_records
+odoo-1  |     records = self._load_records_create([data['values'] for data in to_create])
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5028, in _load_records_create
+odoo-1  |     return self.create(values)
+odoo-1  |   File "<decorator-gen-112>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1505, in create
+odoo-1  |     groups = super().create(vals_list)
+odoo-1  |   File "<decorator-gen-110>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1364, in create
+odoo-1  |     groups = super(GroupsImplied, self).create(vals_list)
+odoo-1  |   File "<decorator-gen-12>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4656, in create
+odoo-1  |     records = self._create(data_list)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4844, in _create
+odoo-1  |     cr.execute(SQL(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 342, in execute
+odoo-1  |     res = self._obj.execute(query, params)
+odoo-1  | psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  | 
+odoo-1  | 
+odoo-1  | The above exception was the direct cause of the following exception:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 110, in new
+odoo-1  |     odoo.modules.load_modules(registry, force_demo, status, update_module)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 481, in load_modules
+odoo-1  |     processed_modules += load_marked_modules(env, graph,
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 366, in load_marked_modules
+odoo-1  |     loaded, processed = load_module_graph(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 229, in load_module_graph
+odoo-1  |     load_data(env, idref, mode, kind='data', package=package)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 73, in load_data
+odoo-1  |     tools.convert_file(env, package.name, filename, idref, mode, noupdate, kind)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 682, in convert_file
+odoo-1  |     convert_xml_import(env, module, fp, idref, mode, noupdate)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 748, in convert_xml_import
+odoo-1  |     obj.parse(doc.getroot())
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 668, in parse
+odoo-1  |     self._tag_root(de)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 623, in _tag_root
+odoo-1  |     raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo-1  | odoo.tools.convert.ParseError: while parsing /mnt/extra-addons/fleetflow/security/security.xml:9, somewhere inside
+odoo-1  | <record id="group_dispatcher" model="res.groups">
+odoo-1  |             <field name="name">Dispatcher</field>
+odoo-1  |             <field name="category_id" ref="module_category_fleetflow"/>
+odoo-1  |         </record>
+odoo-1  | 2026-02-21 05:40:03,700 1 ERROR ? odoo.http: Exception during request handling. 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 87, in __new__
+odoo-1  |     return cls.registries[db_name]
+odoo-1  |   File "<decorator-gen-5>", line 2, in __getitem__
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/lru.py", line 34, in __getitem__
+odoo-1  |     a = self.d[obj]
+odoo-1  | KeyError: 'fleet_flow'
+odoo-1  | 
+odoo-1  | During handling of the above exception, another exception occurred:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 464, in _tag_record
+odoo-1  |     record = model._load_records([data], self.mode == 'update')
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5117, in _load_records
+odoo-1  |     records = self._load_records_create([data['values'] for data in to_create])
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5028, in _load_records_create
+odoo-1  |     return self.create(values)
+odoo-1  |   File "<decorator-gen-112>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1505, in create
+odoo-1  |     groups = super().create(vals_list)
+odoo-1  |   File "<decorator-gen-110>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1364, in create
+odoo-1  |     groups = super(GroupsImplied, self).create(vals_list)
+odoo-1  |   File "<decorator-gen-12>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4656, in create
+odoo-1  |     records = self._create(data_list)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4844, in _create
+odoo-1  |     cr.execute(SQL(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 342, in execute
+odoo-1  |     res = self._obj.execute(query, params)
+odoo-1  | psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  | 
+odoo-1  | 
+odoo-1  | The above exception was the direct cause of the following exception:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 2409, in __call__
+odoo-1  |     response = request._serve_db()
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 1962, in _serve_db
+odoo-1  |     self.registry = Registry(self.db).check_signaling()
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 89, in __new__
+odoo-1  |     return cls.new(db_name)
+odoo-1  |   File "<decorator-gen-16>", line 2, in new
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 110, in new
+odoo-1  |     odoo.modules.load_modules(registry, force_demo, status, update_module)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 481, in load_modules
+odoo-1  |     processed_modules += load_marked_modules(env, graph,
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 366, in load_marked_modules
+odoo-1  |     loaded, processed = load_module_graph(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 229, in load_module_graph
+odoo-1  |     load_data(env, idref, mode, kind='data', package=package)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 73, in load_data
+odoo-1  |     tools.convert_file(env, package.name, filename, idref, mode, noupdate, kind)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 682, in convert_file
+odoo-1  |     convert_xml_import(env, module, fp, idref, mode, noupdate)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 748, in convert_xml_import
+odoo-1  |     obj.parse(doc.getroot())
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 668, in parse
+odoo-1  |     self._tag_root(de)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 623, in _tag_root
+odoo-1  |     raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo-1  | odoo.tools.convert.ParseError: while parsing /mnt/extra-addons/fleetflow/security/security.xml:9, somewhere inside
+odoo-1  | <record id="group_dispatcher" model="res.groups">
+odoo-1  |             <field name="name">Dispatcher</field>
+odoo-1  |             <field name="category_id" ref="module_category_fleetflow"/>
+odoo-1  |         </record>
+odoo-1  | 2026-02-21 05:40:03,702 1 INFO ? werkzeug: 172.18.0.1 - - [21/Feb/2026 05:40:03] "GET /websocket?version=17.0-3 HTTP/1.1" 500 - 78 0.044 0.124
+odoo-1  | 2026-02-21 05:40:12,644 1 INFO ? odoo.modules.loading: loading 1 modules... 
+odoo-1  | 2026-02-21 05:40:12,656 1 INFO ? odoo.modules.loading: 1 modules loaded in 0.01s, 0 queries (+0 extra) 
+odoo-1  | 2026-02-21 05:40:12,661 1 INFO ? odoo.modules.loading: loading 24 modules... 
+odoo-1  | 2026-02-21 05:40:12,674 1 INFO ? odoo.modules.loading: Loading module fleetflow (15/24) 
+odoo-1  | 2026-02-21 05:40:12,741 1 INFO ? odoo.modules.registry: module fleetflow: creating or updating database tables 
+odoo-1  | 2026-02-21 05:40:12,771 1 INFO ? odoo.modules.loading: loading fleetflow/security/security.xml 
+odoo-1  | 2026-02-21 05:40:12,819 1 ERROR ? odoo.sql_db: bad query: INSERT INTO "res_groups" ("category_id", "create_date", "create_uid", "name", "write_date", "write_uid") VALUES (92, '2026-02-21 05:40:12.641549', 1, '{"en_US": "Dispatcher"}', '2026-02-21 05:40:12.641549', 1) RETURNING "id"
+odoo-1  | ERROR: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  |  
+odoo-1  | 2026-02-21 05:40:12,823 1 WARNING ? odoo.modules.loading: Transient module states were reset 
+odoo-1  | 2026-02-21 05:40:12,823 1 ERROR ? odoo.modules.registry: Failed to load registry 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 87, in __new__
+odoo-1  |     return cls.registries[db_name]
+odoo-1  |   File "<decorator-gen-5>", line 2, in __getitem__
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/lru.py", line 34, in __getitem__
+odoo-1  |     a = self.d[obj]
+odoo-1  | KeyError: 'fleet_flow'
+odoo-1  | 
+odoo-1  | During handling of the above exception, another exception occurred:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 464, in _tag_record
+odoo-1  |     record = model._load_records([data], self.mode == 'update')
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5117, in _load_records
+odoo-1  |     records = self._load_records_create([data['values'] for data in to_create])
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5028, in _load_records_create
+odoo-1  |     return self.create(values)
+odoo-1  |   File "<decorator-gen-112>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1505, in create
+odoo-1  |     groups = super().create(vals_list)
+odoo-1  |   File "<decorator-gen-110>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1364, in create
+odoo-1  |     groups = super(GroupsImplied, self).create(vals_list)
+odoo-1  |   File "<decorator-gen-12>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4656, in create
+odoo-1  |     records = self._create(data_list)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4844, in _create
+odoo-1  |     cr.execute(SQL(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 342, in execute
+odoo-1  |     res = self._obj.execute(query, params)
+odoo-1  | psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  | 
+odoo-1  | 
+odoo-1  | The above exception was the direct cause of the following exception:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 110, in new
+odoo-1  |     odoo.modules.load_modules(registry, force_demo, status, update_module)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 481, in load_modules
+odoo-1  |     processed_modules += load_marked_modules(env, graph,
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 366, in load_marked_modules
+odoo-1  |     loaded, processed = load_module_graph(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 229, in load_module_graph
+odoo-1  |     load_data(env, idref, mode, kind='data', package=package)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 73, in load_data
+odoo-1  |     tools.convert_file(env, package.name, filename, idref, mode, noupdate, kind)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 682, in convert_file
+odoo-1  |     convert_xml_import(env, module, fp, idref, mode, noupdate)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 748, in convert_xml_import
+odoo-1  |     obj.parse(doc.getroot())
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 668, in parse
+odoo-1  |     self._tag_root(de)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 623, in _tag_root
+odoo-1  |     raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo-1  | odoo.tools.convert.ParseError: while parsing /mnt/extra-addons/fleetflow/security/security.xml:9, somewhere inside
+odoo-1  | <record id="group_dispatcher" model="res.groups">
+odoo-1  |             <field name="name">Dispatcher</field>
+odoo-1  |             <field name="category_id" ref="module_category_fleetflow"/>
+odoo-1  |         </record>
+odoo-1  | 2026-02-21 05:40:12,824 1 ERROR ? odoo.http: Exception during request handling. 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 87, in __new__
+odoo-1  |     return cls.registries[db_name]
+odoo-1  |   File "<decorator-gen-5>", line 2, in __getitem__
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/lru.py", line 34, in __getitem__
+odoo-1  |     a = self.d[obj]
+odoo-1  | KeyError: 'fleet_flow'
+odoo-1  | 
+odoo-1  | During handling of the above exception, another exception occurred:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 464, in _tag_record
+odoo-1  |     record = model._load_records([data], self.mode == 'update')
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5117, in _load_records
+odoo-1  |     records = self._load_records_create([data['values'] for data in to_create])
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5028, in _load_records_create
+odoo-1  |     return self.create(values)
+odoo-1  |   File "<decorator-gen-112>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1505, in create
+odoo-1  |     groups = super().create(vals_list)
+odoo-1  |   File "<decorator-gen-110>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1364, in create
+odoo-1  |     groups = super(GroupsImplied, self).create(vals_list)
+odoo-1  |   File "<decorator-gen-12>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4656, in create
+odoo-1  |     records = self._create(data_list)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4844, in _create
+odoo-1  |     cr.execute(SQL(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 342, in execute
+odoo-1  |     res = self._obj.execute(query, params)
+odoo-1  | psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  | 
+odoo-1  | 
+odoo-1  | The above exception was the direct cause of the following exception:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 2409, in __call__
+odoo-1  |     response = request._serve_db()
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 1962, in _serve_db
+odoo-1  |     self.registry = Registry(self.db).check_signaling()
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 89, in __new__
+odoo-1  |     return cls.new(db_name)
+odoo-1  |   File "<decorator-gen-16>", line 2, in new
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 110, in new
+odoo-1  |     odoo.modules.load_modules(registry, force_demo, status, update_module)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 481, in load_modules
+odoo-1  |     processed_modules += load_marked_modules(env, graph,
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 366, in load_marked_modules
+odoo-1  |     loaded, processed = load_module_graph(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 229, in load_module_graph
+odoo-1  |     load_data(env, idref, mode, kind='data', package=package)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 73, in load_data
+odoo-1  |     tools.convert_file(env, package.name, filename, idref, mode, noupdate, kind)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 682, in convert_file
+odoo-1  |     convert_xml_import(env, module, fp, idref, mode, noupdate)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 748, in convert_xml_import
+odoo-1  |     obj.parse(doc.getroot())
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 668, in parse
+odoo-1  |     self._tag_root(de)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 623, in _tag_root
+odoo-1  |     raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo-1  | odoo.tools.convert.ParseError: while parsing /mnt/extra-addons/fleetflow/security/security.xml:9, somewhere inside
+odoo-1  | <record id="group_dispatcher" model="res.groups">
+odoo-1  |             <field name="name">Dispatcher</field>
+odoo-1  |             <field name="category_id" ref="module_category_fleetflow"/>
+odoo-1  |         </record>
+odoo-1  | 2026-02-21 05:40:12,826 1 INFO ? werkzeug: 172.18.0.1 - - [21/Feb/2026 05:40:12] "GET /websocket?version=17.0-3 HTTP/1.1" 500 - 78 0.049 0.149
+odoo-1  | 2026-02-21 05:40:26,654 1 INFO ? odoo.modules.loading: loading 1 modules... 
+odoo-1  | 2026-02-21 05:40:26,666 1 INFO ? odoo.modules.loading: 1 modules loaded in 0.01s, 0 queries (+0 extra) 
+odoo-1  | 2026-02-21 05:40:26,670 1 INFO ? odoo.modules.loading: loading 24 modules... 
+odoo-1  | 2026-02-21 05:40:26,682 1 INFO ? odoo.modules.loading: Loading module fleetflow (15/24) 
+odoo-1  | 2026-02-21 05:40:26,740 1 INFO ? odoo.modules.registry: module fleetflow: creating or updating database tables 
+odoo-1  | 2026-02-21 05:40:26,779 1 INFO ? odoo.modules.loading: loading fleetflow/security/security.xml 
+odoo-1  | 2026-02-21 05:40:26,824 1 ERROR ? odoo.sql_db: bad query: INSERT INTO "res_groups" ("category_id", "create_date", "create_uid", "name", "write_date", "write_uid") VALUES (92, '2026-02-21 05:40:26.652530', 1, '{"en_US": "Dispatcher"}', '2026-02-21 05:40:26.652530', 1) RETURNING "id"
+odoo-1  | ERROR: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  |  
+odoo-1  | 2026-02-21 05:40:26,827 1 WARNING ? odoo.modules.loading: Transient module states were reset 
+odoo-1  | 2026-02-21 05:40:26,827 1 ERROR ? odoo.modules.registry: Failed to load registry 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 87, in __new__
+odoo-1  |     return cls.registries[db_name]
+odoo-1  |   File "<decorator-gen-5>", line 2, in __getitem__
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/lru.py", line 34, in __getitem__
+odoo-1  |     a = self.d[obj]
+odoo-1  | KeyError: 'fleet_flow'
+odoo-1  | 
+odoo-1  | During handling of the above exception, another exception occurred:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 464, in _tag_record
+odoo-1  |     record = model._load_records([data], self.mode == 'update')
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5117, in _load_records
+odoo-1  |     records = self._load_records_create([data['values'] for data in to_create])
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5028, in _load_records_create
+odoo-1  |     return self.create(values)
+odoo-1  |   File "<decorator-gen-112>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1505, in create
+odoo-1  |     groups = super().create(vals_list)
+odoo-1  |   File "<decorator-gen-110>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1364, in create
+odoo-1  |     groups = super(GroupsImplied, self).create(vals_list)
+odoo-1  |   File "<decorator-gen-12>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4656, in create
+odoo-1  |     records = self._create(data_list)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4844, in _create
+odoo-1  |     cr.execute(SQL(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 342, in execute
+odoo-1  |     res = self._obj.execute(query, params)
+odoo-1  | psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  | 
+odoo-1  | 
+odoo-1  | The above exception was the direct cause of the following exception:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 110, in new
+odoo-1  |     odoo.modules.load_modules(registry, force_demo, status, update_module)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 481, in load_modules
+odoo-1  |     processed_modules += load_marked_modules(env, graph,
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 366, in load_marked_modules
+odoo-1  |     loaded, processed = load_module_graph(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 229, in load_module_graph
+odoo-1  |     load_data(env, idref, mode, kind='data', package=package)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 73, in load_data
+odoo-1  |     tools.convert_file(env, package.name, filename, idref, mode, noupdate, kind)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 682, in convert_file
+odoo-1  |     convert_xml_import(env, module, fp, idref, mode, noupdate)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 748, in convert_xml_import
+odoo-1  |     obj.parse(doc.getroot())
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 668, in parse
+odoo-1  |     self._tag_root(de)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 623, in _tag_root
+odoo-1  |     raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo-1  | odoo.tools.convert.ParseError: while parsing /mnt/extra-addons/fleetflow/security/security.xml:9, somewhere inside
+odoo-1  | <record id="group_dispatcher" model="res.groups">
+odoo-1  |             <field name="name">Dispatcher</field>
+odoo-1  |             <field name="category_id" ref="module_category_fleetflow"/>
+odoo-1  |         </record>
+odoo-1  | 2026-02-21 05:40:26,828 1 ERROR ? odoo.http: Exception during request handling. 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 87, in __new__
+odoo-1  |     return cls.registries[db_name]
+odoo-1  |   File "<decorator-gen-5>", line 2, in __getitem__
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/lru.py", line 34, in __getitem__
+odoo-1  |     a = self.d[obj]
+odoo-1  | KeyError: 'fleet_flow'
+odoo-1  | 
+odoo-1  | During handling of the above exception, another exception occurred:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 464, in _tag_record
+odoo-1  |     record = model._load_records([data], self.mode == 'update')
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5117, in _load_records
+odoo-1  |     records = self._load_records_create([data['values'] for data in to_create])
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5028, in _load_records_create
+odoo-1  |     return self.create(values)
+odoo-1  |   File "<decorator-gen-112>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1505, in create
+odoo-1  |     groups = super().create(vals_list)
+odoo-1  |   File "<decorator-gen-110>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1364, in create
+odoo-1  |     groups = super(GroupsImplied, self).create(vals_list)
+odoo-1  |   File "<decorator-gen-12>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4656, in create
+odoo-1  |     records = self._create(data_list)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4844, in _create
+odoo-1  |     cr.execute(SQL(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 342, in execute
+odoo-1  |     res = self._obj.execute(query, params)
+odoo-1  | psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  | 
+odoo-1  | 
+odoo-1  | The above exception was the direct cause of the following exception:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 2409, in __call__
+odoo-1  |     response = request._serve_db()
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 1962, in _serve_db
+odoo-1  |     self.registry = Registry(self.db).check_signaling()
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 89, in __new__
+odoo-1  |     return cls.new(db_name)
+odoo-1  |   File "<decorator-gen-16>", line 2, in new
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 110, in new
+odoo-1  |     odoo.modules.load_modules(registry, force_demo, status, update_module)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 481, in load_modules
+odoo-1  |     processed_modules += load_marked_modules(env, graph,
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 366, in load_marked_modules
+odoo-1  |     loaded, processed = load_module_graph(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 229, in load_module_graph
+odoo-1  |     load_data(env, idref, mode, kind='data', package=package)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 73, in load_data
+odoo-1  |     tools.convert_file(env, package.name, filename, idref, mode, noupdate, kind)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 682, in convert_file
+odoo-1  |     convert_xml_import(env, module, fp, idref, mode, noupdate)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 748, in convert_xml_import
+odoo-1  |     obj.parse(doc.getroot())
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 668, in parse
+odoo-1  |     self._tag_root(de)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 623, in _tag_root
+odoo-1  |     raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo-1  | odoo.tools.convert.ParseError: while parsing /mnt/extra-addons/fleetflow/security/security.xml:9, somewhere inside
+odoo-1  | <record id="group_dispatcher" model="res.groups">
+odoo-1  |             <field name="name">Dispatcher</field>
+odoo-1  |             <field name="category_id" ref="module_category_fleetflow"/>
+odoo-1  |         </record>
+odoo-1  | 2026-02-21 05:40:26,829 1 INFO ? werkzeug: 172.18.0.1 - - [21/Feb/2026 05:40:26] "GET /websocket?version=17.0-3 HTTP/1.1" 500 - 78 0.055 0.131
+odoo-1  | 2026-02-21 05:40:56,080 1 INFO ? odoo.modules.loading: loading 1 modules... 
+odoo-1  | 2026-02-21 05:40:56,089 1 INFO ? odoo.modules.loading: 1 modules loaded in 0.01s, 0 queries (+0 extra) 
+odoo-1  | 2026-02-21 05:40:56,093 1 INFO ? odoo.modules.loading: loading 24 modules... 
+odoo-1  | 2026-02-21 05:40:56,112 1 INFO ? odoo.modules.loading: Loading module fleetflow (15/24) 
+odoo-1  | 2026-02-21 05:40:56,195 1 INFO ? odoo.modules.registry: module fleetflow: creating or updating database tables 
+odoo-1  | 2026-02-21 05:40:56,234 1 INFO ? odoo.modules.loading: loading fleetflow/security/security.xml 
+odoo-1  | 2026-02-21 05:40:56,282 1 ERROR ? odoo.sql_db: bad query: INSERT INTO "res_groups" ("category_id", "create_date", "create_uid", "name", "write_date", "write_uid") VALUES (92, '2026-02-21 05:40:56.079806', 1, '{"en_US": "Dispatcher"}', '2026-02-21 05:40:56.079806', 1) RETURNING "id"
+odoo-1  | ERROR: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  |  
+odoo-1  | 2026-02-21 05:40:56,285 1 WARNING ? odoo.modules.loading: Transient module states were reset 
+odoo-1  | 2026-02-21 05:40:56,285 1 ERROR ? odoo.modules.registry: Failed to load registry 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 87, in __new__
+odoo-1  |     return cls.registries[db_name]
+odoo-1  |   File "<decorator-gen-5>", line 2, in __getitem__
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/lru.py", line 34, in __getitem__
+odoo-1  |     a = self.d[obj]
+odoo-1  | KeyError: 'fleet_flow'
+odoo-1  | 
+odoo-1  | During handling of the above exception, another exception occurred:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 464, in _tag_record
+odoo-1  |     record = model._load_records([data], self.mode == 'update')
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5117, in _load_records
+odoo-1  |     records = self._load_records_create([data['values'] for data in to_create])
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5028, in _load_records_create
+odoo-1  |     return self.create(values)
+odoo-1  |   File "<decorator-gen-112>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1505, in create
+odoo-1  |     groups = super().create(vals_list)
+odoo-1  |   File "<decorator-gen-110>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1364, in create
+odoo-1  |     groups = super(GroupsImplied, self).create(vals_list)
+odoo-1  |   File "<decorator-gen-12>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4656, in create
+odoo-1  |     records = self._create(data_list)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4844, in _create
+odoo-1  |     cr.execute(SQL(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 342, in execute
+odoo-1  |     res = self._obj.execute(query, params)
+odoo-1  | psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  | 
+odoo-1  | 
+odoo-1  | The above exception was the direct cause of the following exception:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 110, in new
+odoo-1  |     odoo.modules.load_modules(registry, force_demo, status, update_module)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 481, in load_modules
+odoo-1  |     processed_modules += load_marked_modules(env, graph,
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 366, in load_marked_modules
+odoo-1  |     loaded, processed = load_module_graph(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 229, in load_module_graph
+odoo-1  |     load_data(env, idref, mode, kind='data', package=package)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 73, in load_data
+odoo-1  |     tools.convert_file(env, package.name, filename, idref, mode, noupdate, kind)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 682, in convert_file
+odoo-1  |     convert_xml_import(env, module, fp, idref, mode, noupdate)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 748, in convert_xml_import
+odoo-1  |     obj.parse(doc.getroot())
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 668, in parse
+odoo-1  |     self._tag_root(de)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 623, in _tag_root
+odoo-1  |     raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo-1  | odoo.tools.convert.ParseError: while parsing /mnt/extra-addons/fleetflow/security/security.xml:9, somewhere inside
+odoo-1  | <record id="group_dispatcher" model="res.groups">
+odoo-1  |             <field name="name">Dispatcher</field>
+odoo-1  |             <field name="category_id" ref="module_category_fleetflow"/>
+odoo-1  |         </record>
+odoo-1  | 2026-02-21 05:40:56,286 1 ERROR ? odoo.http: Exception during request handling. 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 87, in __new__
+odoo-1  |     return cls.registries[db_name]
+odoo-1  |   File "<decorator-gen-5>", line 2, in __getitem__
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/lru.py", line 34, in __getitem__
+odoo-1  |     a = self.d[obj]
+odoo-1  | KeyError: 'fleet_flow'
+odoo-1  | 
+odoo-1  | During handling of the above exception, another exception occurred:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 464, in _tag_record
+odoo-1  |     record = model._load_records([data], self.mode == 'update')
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5117, in _load_records
+odoo-1  |     records = self._load_records_create([data['values'] for data in to_create])
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5028, in _load_records_create
+odoo-1  |     return self.create(values)
+odoo-1  |   File "<decorator-gen-112>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1505, in create
+odoo-1  |     groups = super().create(vals_list)
+odoo-1  |   File "<decorator-gen-110>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1364, in create
+odoo-1  |     groups = super(GroupsImplied, self).create(vals_list)
+odoo-1  |   File "<decorator-gen-12>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4656, in create
+odoo-1  |     records = self._create(data_list)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4844, in _create
+odoo-1  |     cr.execute(SQL(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 342, in execute
+odoo-1  |     res = self._obj.execute(query, params)
+odoo-1  | psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  | 
+odoo-1  | 
+odoo-1  | The above exception was the direct cause of the following exception:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 2409, in __call__
+odoo-1  |     response = request._serve_db()
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 1962, in _serve_db
+odoo-1  |     self.registry = Registry(self.db).check_signaling()
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 89, in __new__
+odoo-1  |     return cls.new(db_name)
+odoo-1  |   File "<decorator-gen-16>", line 2, in new
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 110, in new
+odoo-1  |     odoo.modules.load_modules(registry, force_demo, status, update_module)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 481, in load_modules
+odoo-1  |     processed_modules += load_marked_modules(env, graph,
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 366, in load_marked_modules
+odoo-1  |     loaded, processed = load_module_graph(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 229, in load_module_graph
+odoo-1  |     load_data(env, idref, mode, kind='data', package=package)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 73, in load_data
+odoo-1  |     tools.convert_file(env, package.name, filename, idref, mode, noupdate, kind)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 682, in convert_file
+odoo-1  |     convert_xml_import(env, module, fp, idref, mode, noupdate)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 748, in convert_xml_import
+odoo-1  |     obj.parse(doc.getroot())
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 668, in parse
+odoo-1  |     self._tag_root(de)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 623, in _tag_root
+odoo-1  |     raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo-1  | odoo.tools.convert.ParseError: while parsing /mnt/extra-addons/fleetflow/security/security.xml:9, somewhere inside
+odoo-1  | <record id="group_dispatcher" model="res.groups">
+odoo-1  |             <field name="name">Dispatcher</field>
+odoo-1  |             <field name="category_id" ref="module_category_fleetflow"/>
+odoo-1  |         </record>
+odoo-1  | 2026-02-21 05:40:56,287 1 INFO ? werkzeug: 172.18.0.1 - - [21/Feb/2026 05:40:56] "GET /websocket?version=17.0-3 HTTP/1.1" 500 - 78 0.050 0.162
+odoo-1  | 2026-02-21 05:40:58,730 1 INFO ? odoo.modules.loading: loading 1 modules... 
+odoo-1  | 2026-02-21 05:40:58,739 1 INFO ? odoo.modules.loading: 1 modules loaded in 0.01s, 0 queries (+0 extra) 
+odoo-1  | 2026-02-21 05:40:58,743 1 INFO ? odoo.modules.loading: loading 24 modules... 
+odoo-1  | 2026-02-21 05:40:58,758 1 INFO ? odoo.modules.loading: Loading module fleetflow (15/24) 
+odoo-1  | 2026-02-21 05:40:58,837 1 INFO ? odoo.modules.registry: module fleetflow: creating or updating database tables 
+odoo-1  | 2026-02-21 05:40:58,881 1 INFO ? odoo.modules.loading: loading fleetflow/security/security.xml 
+odoo-1  | 2026-02-21 05:40:59,036 1 ERROR ? odoo.sql_db: bad query: INSERT INTO "res_groups" ("category_id", "create_date", "create_uid", "name", "write_date", "write_uid") VALUES (92, '2026-02-21 05:40:58.728084', 1, '{"en_US": "Dispatcher"}', '2026-02-21 05:40:58.728084', 1) RETURNING "id"
+odoo-1  | ERROR: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  |  
+odoo-1  | 2026-02-21 05:40:59,040 1 WARNING ? odoo.modules.loading: Transient module states were reset 
+odoo-1  | 2026-02-21 05:40:59,040 1 ERROR ? odoo.modules.registry: Failed to load registry 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 87, in __new__
+odoo-1  |     return cls.registries[db_name]
+odoo-1  |   File "<decorator-gen-5>", line 2, in __getitem__
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/lru.py", line 34, in __getitem__
+odoo-1  |     a = self.d[obj]
+odoo-1  | KeyError: 'fleet_flow'
+odoo-1  | 
+odoo-1  | During handling of the above exception, another exception occurred:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 464, in _tag_record
+odoo-1  |     record = model._load_records([data], self.mode == 'update')
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5117, in _load_records
+odoo-1  |     records = self._load_records_create([data['values'] for data in to_create])
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5028, in _load_records_create
+odoo-1  |     return self.create(values)
+odoo-1  |   File "<decorator-gen-112>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1505, in create
+odoo-1  |     groups = super().create(vals_list)
+odoo-1  |   File "<decorator-gen-110>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1364, in create
+odoo-1  |     groups = super(GroupsImplied, self).create(vals_list)
+odoo-1  |   File "<decorator-gen-12>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4656, in create
+odoo-1  |     records = self._create(data_list)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4844, in _create
+odoo-1  |     cr.execute(SQL(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 342, in execute
+odoo-1  |     res = self._obj.execute(query, params)
+odoo-1  | psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  | 
+odoo-1  | 
+odoo-1  | The above exception was the direct cause of the following exception:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 110, in new
+odoo-1  |     odoo.modules.load_modules(registry, force_demo, status, update_module)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 481, in load_modules
+odoo-1  |     processed_modules += load_marked_modules(env, graph,
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 366, in load_marked_modules
+odoo-1  |     loaded, processed = load_module_graph(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 229, in load_module_graph
+odoo-1  |     load_data(env, idref, mode, kind='data', package=package)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 73, in load_data
+odoo-1  |     tools.convert_file(env, package.name, filename, idref, mode, noupdate, kind)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 682, in convert_file
+odoo-1  |     convert_xml_import(env, module, fp, idref, mode, noupdate)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 748, in convert_xml_import
+odoo-1  |     obj.parse(doc.getroot())
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 668, in parse
+odoo-1  |     self._tag_root(de)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 623, in _tag_root
+odoo-1  |     raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo-1  | odoo.tools.convert.ParseError: while parsing /mnt/extra-addons/fleetflow/security/security.xml:9, somewhere inside
+odoo-1  | <record id="group_dispatcher" model="res.groups">
+odoo-1  |             <field name="name">Dispatcher</field>
+odoo-1  |             <field name="category_id" ref="module_category_fleetflow"/>
+odoo-1  |         </record>
+odoo-1  | 2026-02-21 05:40:59,041 1 ERROR ? odoo.http: Exception during request handling. 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 87, in __new__
+odoo-1  |     return cls.registries[db_name]
+odoo-1  |   File "<decorator-gen-5>", line 2, in __getitem__
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/lru.py", line 34, in __getitem__
+odoo-1  |     a = self.d[obj]
+odoo-1  | KeyError: 'fleet_flow'
+odoo-1  | 
+odoo-1  | During handling of the above exception, another exception occurred:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 464, in _tag_record
+odoo-1  |     record = model._load_records([data], self.mode == 'update')
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5117, in _load_records
+odoo-1  |     records = self._load_records_create([data['values'] for data in to_create])
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5028, in _load_records_create
+odoo-1  |     return self.create(values)
+odoo-1  |   File "<decorator-gen-112>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1505, in create
+odoo-1  |     groups = super().create(vals_list)
+odoo-1  |   File "<decorator-gen-110>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1364, in create
+odoo-1  |     groups = super(GroupsImplied, self).create(vals_list)
+odoo-1  |   File "<decorator-gen-12>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4656, in create
+odoo-1  |     records = self._create(data_list)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4844, in _create
+odoo-1  |     cr.execute(SQL(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 342, in execute
+odoo-1  |     res = self._obj.execute(query, params)
+odoo-1  | psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  | 
+odoo-1  | 
+odoo-1  | The above exception was the direct cause of the following exception:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 2409, in __call__
+odoo-1  |     response = request._serve_db()
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 1962, in _serve_db
+odoo-1  |     self.registry = Registry(self.db).check_signaling()
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 89, in __new__
+odoo-1  |     return cls.new(db_name)
+odoo-1  |   File "<decorator-gen-16>", line 2, in new
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 110, in new
+odoo-1  |     odoo.modules.load_modules(registry, force_demo, status, update_module)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 481, in load_modules
+odoo-1  |     processed_modules += load_marked_modules(env, graph,
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 366, in load_marked_modules
+odoo-1  |     loaded, processed = load_module_graph(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 229, in load_module_graph
+odoo-1  |     load_data(env, idref, mode, kind='data', package=package)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 73, in load_data
+odoo-1  |     tools.convert_file(env, package.name, filename, idref, mode, noupdate, kind)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 682, in convert_file
+odoo-1  |     convert_xml_import(env, module, fp, idref, mode, noupdate)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 748, in convert_xml_import
+odoo-1  |     obj.parse(doc.getroot())
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 668, in parse
+odoo-1  |     self._tag_root(de)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 623, in _tag_root
+odoo-1  |     raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo-1  | odoo.tools.convert.ParseError: while parsing /mnt/extra-addons/fleetflow/security/security.xml:9, somewhere inside
+odoo-1  | <record id="group_dispatcher" model="res.groups">
+odoo-1  |             <field name="name">Dispatcher</field>
+odoo-1  |             <field name="category_id" ref="module_category_fleetflow"/>
+odoo-1  |         </record>
+odoo-1  | 2026-02-21 05:40:59,042 1 INFO ? werkzeug: 172.18.0.1 - - [21/Feb/2026 05:40:59] "GET /web HTTP/1.1" 500 - 78 0.060 0.264
+odoo-1  | 2026-02-21 05:40:59,295 1 INFO ? odoo.modules.loading: loading 1 modules... 
+odoo-1  | 2026-02-21 05:40:59,302 1 INFO ? odoo.modules.loading: 1 modules loaded in 0.01s, 0 queries (+0 extra) 
+odoo-1  | 2026-02-21 05:40:59,305 1 INFO ? odoo.modules.loading: loading 24 modules... 
+odoo-1  | 2026-02-21 05:40:59,317 1 INFO ? odoo.modules.loading: Loading module fleetflow (15/24) 
+odoo-1  | 2026-02-21 05:40:59,384 1 INFO ? odoo.modules.registry: module fleetflow: creating or updating database tables 
+odoo-1  | 2026-02-21 05:40:59,424 1 INFO ? odoo.modules.loading: loading fleetflow/security/security.xml 
+odoo-1  | 2026-02-21 05:40:59,505 1 ERROR ? odoo.sql_db: bad query: INSERT INTO "res_groups" ("category_id", "create_date", "create_uid", "name", "write_date", "write_uid") VALUES (92, '2026-02-21 05:40:59.293662', 1, '{"en_US": "Dispatcher"}', '2026-02-21 05:40:59.293662', 1) RETURNING "id"
+odoo-1  | ERROR: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  |  
+odoo-1  | 2026-02-21 05:40:59,511 1 WARNING ? odoo.modules.loading: Transient module states were reset 
+odoo-1  | 2026-02-21 05:40:59,512 1 ERROR ? odoo.modules.registry: Failed to load registry 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 87, in __new__
+odoo-1  |     return cls.registries[db_name]
+odoo-1  |   File "<decorator-gen-5>", line 2, in __getitem__
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/lru.py", line 34, in __getitem__
+odoo-1  |     a = self.d[obj]
+odoo-1  | KeyError: 'fleet_flow'
+odoo-1  | 
+odoo-1  | During handling of the above exception, another exception occurred:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 464, in _tag_record
+odoo-1  |     record = model._load_records([data], self.mode == 'update')
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5117, in _load_records
+odoo-1  |     records = self._load_records_create([data['values'] for data in to_create])
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5028, in _load_records_create
+odoo-1  |     return self.create(values)
+odoo-1  |   File "<decorator-gen-112>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1505, in create
+odoo-1  |     groups = super().create(vals_list)
+odoo-1  |   File "<decorator-gen-110>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1364, in create
+odoo-1  |     groups = super(GroupsImplied, self).create(vals_list)
+odoo-1  |   File "<decorator-gen-12>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4656, in create
+odoo-1  |     records = self._create(data_list)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4844, in _create
+odoo-1  |     cr.execute(SQL(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 342, in execute
+odoo-1  |     res = self._obj.execute(query, params)
+odoo-1  | psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  | 
+odoo-1  | 
+odoo-1  | The above exception was the direct cause of the following exception:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 110, in new
+odoo-1  |     odoo.modules.load_modules(registry, force_demo, status, update_module)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 481, in load_modules
+odoo-1  |     processed_modules += load_marked_modules(env, graph,
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 366, in load_marked_modules
+odoo-1  |     loaded, processed = load_module_graph(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 229, in load_module_graph
+odoo-1  |     load_data(env, idref, mode, kind='data', package=package)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 73, in load_data
+odoo-1  |     tools.convert_file(env, package.name, filename, idref, mode, noupdate, kind)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 682, in convert_file
+odoo-1  |     convert_xml_import(env, module, fp, idref, mode, noupdate)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 748, in convert_xml_import
+odoo-1  |     obj.parse(doc.getroot())
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 668, in parse
+odoo-1  |     self._tag_root(de)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 623, in _tag_root
+odoo-1  |     raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo-1  | odoo.tools.convert.ParseError: while parsing /mnt/extra-addons/fleetflow/security/security.xml:9, somewhere inside
+odoo-1  | <record id="group_dispatcher" model="res.groups">
+odoo-1  |             <field name="name">Dispatcher</field>
+odoo-1  |             <field name="category_id" ref="module_category_fleetflow"/>
+odoo-1  |         </record>
+odoo-1  | 2026-02-21 05:40:59,514 1 ERROR ? odoo.http: Exception during request handling. 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 87, in __new__
+odoo-1  |     return cls.registries[db_name]
+odoo-1  |   File "<decorator-gen-5>", line 2, in __getitem__
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/lru.py", line 34, in __getitem__
+odoo-1  |     a = self.d[obj]
+odoo-1  | KeyError: 'fleet_flow'
+odoo-1  | 
+odoo-1  | During handling of the above exception, another exception occurred:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 464, in _tag_record
+odoo-1  |     record = model._load_records([data], self.mode == 'update')
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5117, in _load_records
+odoo-1  |     records = self._load_records_create([data['values'] for data in to_create])
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5028, in _load_records_create
+odoo-1  |     return self.create(values)
+odoo-1  |   File "<decorator-gen-112>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1505, in create
+odoo-1  |     groups = super().create(vals_list)
+odoo-1  |   File "<decorator-gen-110>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1364, in create
+odoo-1  |     groups = super(GroupsImplied, self).create(vals_list)
+odoo-1  |   File "<decorator-gen-12>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4656, in create
+odoo-1  |     records = self._create(data_list)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4844, in _create
+odoo-1  |     cr.execute(SQL(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 342, in execute
+odoo-1  |     res = self._obj.execute(query, params)
+odoo-1  | psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  | 
+odoo-1  | 
+odoo-1  | The above exception was the direct cause of the following exception:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 2409, in __call__
+odoo-1  |     response = request._serve_db()
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 1962, in _serve_db
+odoo-1  |     self.registry = Registry(self.db).check_signaling()
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 89, in __new__
+odoo-1  |     return cls.new(db_name)
+odoo-1  |   File "<decorator-gen-16>", line 2, in new
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 110, in new
+odoo-1  |     odoo.modules.load_modules(registry, force_demo, status, update_module)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 481, in load_modules
+odoo-1  |     processed_modules += load_marked_modules(env, graph,
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 366, in load_marked_modules
+odoo-1  |     loaded, processed = load_module_graph(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 229, in load_module_graph
+odoo-1  |     load_data(env, idref, mode, kind='data', package=package)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 73, in load_data
+odoo-1  |     tools.convert_file(env, package.name, filename, idref, mode, noupdate, kind)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 682, in convert_file
+odoo-1  |     convert_xml_import(env, module, fp, idref, mode, noupdate)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 748, in convert_xml_import
+odoo-1  |     obj.parse(doc.getroot())
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 668, in parse
+odoo-1  |     self._tag_root(de)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 623, in _tag_root
+odoo-1  |     raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo-1  | odoo.tools.convert.ParseError: while parsing /mnt/extra-addons/fleetflow/security/security.xml:9, somewhere inside
+odoo-1  | <record id="group_dispatcher" model="res.groups">
+odoo-1  |             <field name="name">Dispatcher</field>
+odoo-1  |             <field name="category_id" ref="module_category_fleetflow"/>
+odoo-1  |         </record>
+odoo-1  | 2026-02-21 05:40:59,516 1 INFO ? werkzeug: 172.18.0.1 - - [21/Feb/2026 05:40:59] "GET /favicon.ico HTTP/1.1" 500 - 78 0.061 0.167
+odoo-1  | 2026-02-21 05:41:00,756 1 INFO ? odoo.modules.loading: loading 1 modules... 
+odoo-1  | 2026-02-21 05:41:00,772 1 INFO ? odoo.modules.loading: 1 modules loaded in 0.02s, 0 queries (+0 extra) 
+odoo-1  | 2026-02-21 05:41:00,779 1 INFO ? odoo.modules.loading: loading 24 modules... 
+odoo-1  | 2026-02-21 05:41:00,801 1 INFO ? odoo.modules.loading: Loading module fleetflow (15/24) 
+odoo-1  | 2026-02-21 05:41:00,880 1 INFO ? odoo.modules.registry: module fleetflow: creating or updating database tables 
+odoo-1  | 2026-02-21 05:41:00,911 1 INFO ? odoo.modules.loading: loading fleetflow/security/security.xml 
+odoo-1  | 2026-02-21 05:41:00,959 1 ERROR ? odoo.sql_db: bad query: INSERT INTO "res_groups" ("category_id", "create_date", "create_uid", "name", "write_date", "write_uid") VALUES (92, '2026-02-21 05:41:00.754789', 1, '{"en_US": "Dispatcher"}', '2026-02-21 05:41:00.754789', 1) RETURNING "id"
+odoo-1  | ERROR: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  |  
+odoo-1  | 2026-02-21 05:41:00,962 1 WARNING ? odoo.modules.loading: Transient module states were reset 
+odoo-1  | 2026-02-21 05:41:00,962 1 ERROR ? odoo.modules.registry: Failed to load registry 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 87, in __new__
+odoo-1  |     return cls.registries[db_name]
+odoo-1  |   File "<decorator-gen-5>", line 2, in __getitem__
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/lru.py", line 34, in __getitem__
+odoo-1  |     a = self.d[obj]
+odoo-1  | KeyError: 'fleet_flow'
+odoo-1  | 
+odoo-1  | During handling of the above exception, another exception occurred:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 464, in _tag_record
+odoo-1  |     record = model._load_records([data], self.mode == 'update')
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5117, in _load_records
+odoo-1  |     records = self._load_records_create([data['values'] for data in to_create])
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5028, in _load_records_create
+odoo-1  |     return self.create(values)
+odoo-1  |   File "<decorator-gen-112>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1505, in create
+odoo-1  |     groups = super().create(vals_list)
+odoo-1  |   File "<decorator-gen-110>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1364, in create
+odoo-1  |     groups = super(GroupsImplied, self).create(vals_list)
+odoo-1  |   File "<decorator-gen-12>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4656, in create
+odoo-1  |     records = self._create(data_list)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4844, in _create
+odoo-1  |     cr.execute(SQL(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 342, in execute
+odoo-1  |     res = self._obj.execute(query, params)
+odoo-1  | psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  | 
+odoo-1  | 
+odoo-1  | The above exception was the direct cause of the following exception:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 110, in new
+odoo-1  |     odoo.modules.load_modules(registry, force_demo, status, update_module)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 481, in load_modules
+odoo-1  |     processed_modules += load_marked_modules(env, graph,
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 366, in load_marked_modules
+odoo-1  |     loaded, processed = load_module_graph(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 229, in load_module_graph
+odoo-1  |     load_data(env, idref, mode, kind='data', package=package)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 73, in load_data
+odoo-1  |     tools.convert_file(env, package.name, filename, idref, mode, noupdate, kind)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 682, in convert_file
+odoo-1  |     convert_xml_import(env, module, fp, idref, mode, noupdate)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 748, in convert_xml_import
+odoo-1  |     obj.parse(doc.getroot())
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 668, in parse
+odoo-1  |     self._tag_root(de)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 623, in _tag_root
+odoo-1  |     raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo-1  | odoo.tools.convert.ParseError: while parsing /mnt/extra-addons/fleetflow/security/security.xml:9, somewhere inside
+odoo-1  | <record id="group_dispatcher" model="res.groups">
+odoo-1  |             <field name="name">Dispatcher</field>
+odoo-1  |             <field name="category_id" ref="module_category_fleetflow"/>
+odoo-1  |         </record>
+odoo-1  | 2026-02-21 05:41:00,963 1 ERROR ? odoo.http: Exception during request handling. 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 87, in __new__
+odoo-1  |     return cls.registries[db_name]
+odoo-1  |   File "<decorator-gen-5>", line 2, in __getitem__
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/lru.py", line 34, in __getitem__
+odoo-1  |     a = self.d[obj]
+odoo-1  | KeyError: 'fleet_flow'
+odoo-1  | 
+odoo-1  | During handling of the above exception, another exception occurred:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 464, in _tag_record
+odoo-1  |     record = model._load_records([data], self.mode == 'update')
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5117, in _load_records
+odoo-1  |     records = self._load_records_create([data['values'] for data in to_create])
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5028, in _load_records_create
+odoo-1  |     return self.create(values)
+odoo-1  |   File "<decorator-gen-112>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1505, in create
+odoo-1  |     groups = super().create(vals_list)
+odoo-1  |   File "<decorator-gen-110>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1364, in create
+odoo-1  |     groups = super(GroupsImplied, self).create(vals_list)
+odoo-1  |   File "<decorator-gen-12>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4656, in create
+odoo-1  |     records = self._create(data_list)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4844, in _create
+odoo-1  |     cr.execute(SQL(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 342, in execute
+odoo-1  |     res = self._obj.execute(query, params)
+odoo-1  | psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  | 
+odoo-1  | 
+odoo-1  | The above exception was the direct cause of the following exception:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 2409, in __call__
+odoo-1  |     response = request._serve_db()
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 1962, in _serve_db
+odoo-1  |     self.registry = Registry(self.db).check_signaling()
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 89, in __new__
+odoo-1  |     return cls.new(db_name)
+odoo-1  |   File "<decorator-gen-16>", line 2, in new
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 110, in new
+odoo-1  |     odoo.modules.load_modules(registry, force_demo, status, update_module)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 481, in load_modules
+odoo-1  |     processed_modules += load_marked_modules(env, graph,
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 366, in load_marked_modules
+odoo-1  |     loaded, processed = load_module_graph(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 229, in load_module_graph
+odoo-1  |     load_data(env, idref, mode, kind='data', package=package)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 73, in load_data
+odoo-1  |     tools.convert_file(env, package.name, filename, idref, mode, noupdate, kind)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 682, in convert_file
+odoo-1  |     convert_xml_import(env, module, fp, idref, mode, noupdate)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 748, in convert_xml_import
+odoo-1  |     obj.parse(doc.getroot())
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 668, in parse
+odoo-1  |     self._tag_root(de)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 623, in _tag_root
+odoo-1  |     raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo-1  | odoo.tools.convert.ParseError: while parsing /mnt/extra-addons/fleetflow/security/security.xml:9, somewhere inside
+odoo-1  | <record id="group_dispatcher" model="res.groups">
+odoo-1  |             <field name="name">Dispatcher</field>
+odoo-1  |             <field name="category_id" ref="module_category_fleetflow"/>
+odoo-1  |         </record>
+odoo-1  | 2026-02-21 05:41:00,964 1 INFO ? werkzeug: 172.18.0.1 - - [21/Feb/2026 05:41:00] "GET /web/service-worker.js HTTP/1.1" 500 - 78 0.046 0.170
+odoo-1  | 2026-02-21 05:42:37,928 1 INFO ? odoo.modules.loading: loading 1 modules... 
+odoo-1  | 2026-02-21 05:42:37,936 1 INFO ? odoo.modules.loading: 1 modules loaded in 0.01s, 0 queries (+0 extra) 
+odoo-1  | 2026-02-21 05:42:37,940 1 INFO ? odoo.modules.loading: loading 24 modules... 
+odoo-1  | 2026-02-21 05:42:37,960 1 INFO ? odoo.modules.loading: Loading module fleetflow (15/24) 
+odoo-1  | 2026-02-21 05:42:38,038 1 INFO ? odoo.modules.registry: module fleetflow: creating or updating database tables 
+odoo-1  | 2026-02-21 05:42:38,078 1 INFO ? odoo.modules.loading: loading fleetflow/security/security.xml 
+odoo-1  | 2026-02-21 05:42:38,136 1 ERROR ? odoo.sql_db: bad query: INSERT INTO "res_groups" ("category_id", "create_date", "create_uid", "name", "write_date", "write_uid") VALUES (92, '2026-02-21 05:42:37.925271', 1, '{"en_US": "Dispatcher"}', '2026-02-21 05:42:37.925271', 1) RETURNING "id"
+odoo-1  | ERROR: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  |  
+odoo-1  | 2026-02-21 05:42:38,140 1 WARNING ? odoo.modules.loading: Transient module states were reset 
+odoo-1  | 2026-02-21 05:42:38,140 1 ERROR ? odoo.modules.registry: Failed to load registry 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 87, in __new__
+odoo-1  |     return cls.registries[db_name]
+odoo-1  |   File "<decorator-gen-5>", line 2, in __getitem__
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/lru.py", line 34, in __getitem__
+odoo-1  |     a = self.d[obj]
+odoo-1  | KeyError: 'fleet_flow'
+odoo-1  | 
+odoo-1  | During handling of the above exception, another exception occurred:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 464, in _tag_record
+odoo-1  |     record = model._load_records([data], self.mode == 'update')
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5117, in _load_records
+odoo-1  |     records = self._load_records_create([data['values'] for data in to_create])
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5028, in _load_records_create
+odoo-1  |     return self.create(values)
+odoo-1  |   File "<decorator-gen-112>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1505, in create
+odoo-1  |     groups = super().create(vals_list)
+odoo-1  |   File "<decorator-gen-110>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1364, in create
+odoo-1  |     groups = super(GroupsImplied, self).create(vals_list)
+odoo-1  |   File "<decorator-gen-12>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4656, in create
+odoo-1  |     records = self._create(data_list)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4844, in _create
+odoo-1  |     cr.execute(SQL(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 342, in execute
+odoo-1  |     res = self._obj.execute(query, params)
+odoo-1  | psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  | 
+odoo-1  | 
+odoo-1  | The above exception was the direct cause of the following exception:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 110, in new
+odoo-1  |     odoo.modules.load_modules(registry, force_demo, status, update_module)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 481, in load_modules
+odoo-1  |     processed_modules += load_marked_modules(env, graph,
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 366, in load_marked_modules
+odoo-1  |     loaded, processed = load_module_graph(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 229, in load_module_graph
+odoo-1  |     load_data(env, idref, mode, kind='data', package=package)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 73, in load_data
+odoo-1  |     tools.convert_file(env, package.name, filename, idref, mode, noupdate, kind)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 682, in convert_file
+odoo-1  |     convert_xml_import(env, module, fp, idref, mode, noupdate)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 748, in convert_xml_import
+odoo-1  |     obj.parse(doc.getroot())
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 668, in parse
+odoo-1  |     self._tag_root(de)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 623, in _tag_root
+odoo-1  |     raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo-1  | odoo.tools.convert.ParseError: while parsing /mnt/extra-addons/fleetflow/security/security.xml:9, somewhere inside
+odoo-1  | <record id="group_dispatcher" model="res.groups">
+odoo-1  |             <field name="name">Dispatcher</field>
+odoo-1  |             <field name="category_id" ref="module_category_fleetflow"/>
+odoo-1  |         </record>
+odoo-1  | 2026-02-21 05:42:38,141 1 ERROR ? odoo.http: Exception during request handling. 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 87, in __new__
+odoo-1  |     return cls.registries[db_name]
+odoo-1  |   File "<decorator-gen-5>", line 2, in __getitem__
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/lru.py", line 34, in __getitem__
+odoo-1  |     a = self.d[obj]
+odoo-1  | KeyError: 'fleet_flow'
+odoo-1  | 
+odoo-1  | During handling of the above exception, another exception occurred:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 464, in _tag_record
+odoo-1  |     record = model._load_records([data], self.mode == 'update')
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5117, in _load_records
+odoo-1  |     records = self._load_records_create([data['values'] for data in to_create])
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5028, in _load_records_create
+odoo-1  |     return self.create(values)
+odoo-1  |   File "<decorator-gen-112>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1505, in create
+odoo-1  |     groups = super().create(vals_list)
+odoo-1  |   File "<decorator-gen-110>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1364, in create
+odoo-1  |     groups = super(GroupsImplied, self).create(vals_list)
+odoo-1  |   File "<decorator-gen-12>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4656, in create
+odoo-1  |     records = self._create(data_list)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4844, in _create
+odoo-1  |     cr.execute(SQL(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 342, in execute
+odoo-1  |     res = self._obj.execute(query, params)
+odoo-1  | psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  | 
+odoo-1  | 
+odoo-1  | The above exception was the direct cause of the following exception:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 2409, in __call__
+odoo-1  |     response = request._serve_db()
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 1962, in _serve_db
+odoo-1  |     self.registry = Registry(self.db).check_signaling()
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 89, in __new__
+odoo-1  |     return cls.new(db_name)
+odoo-1  |   File "<decorator-gen-16>", line 2, in new
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 110, in new
+odoo-1  |     odoo.modules.load_modules(registry, force_demo, status, update_module)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 481, in load_modules
+odoo-1  |     processed_modules += load_marked_modules(env, graph,
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 366, in load_marked_modules
+odoo-1  |     loaded, processed = load_module_graph(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 229, in load_module_graph
+odoo-1  |     load_data(env, idref, mode, kind='data', package=package)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 73, in load_data
+odoo-1  |     tools.convert_file(env, package.name, filename, idref, mode, noupdate, kind)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 682, in convert_file
+odoo-1  |     convert_xml_import(env, module, fp, idref, mode, noupdate)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 748, in convert_xml_import
+odoo-1  |     obj.parse(doc.getroot())
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 668, in parse
+odoo-1  |     self._tag_root(de)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 623, in _tag_root
+odoo-1  |     raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo-1  | odoo.tools.convert.ParseError: while parsing /mnt/extra-addons/fleetflow/security/security.xml:9, somewhere inside
+odoo-1  | <record id="group_dispatcher" model="res.groups">
+odoo-1  |             <field name="name">Dispatcher</field>
+odoo-1  |             <field name="category_id" ref="module_category_fleetflow"/>
+odoo-1  |         </record>
+odoo-1  | 2026-02-21 05:42:38,142 1 INFO ? werkzeug: 172.18.0.3 - - [21/Feb/2026 05:42:38] "GET /api/dashboard HTTP/1.1" 500 - 78 0.061 0.165
+odoo-1  | 2026-02-21 05:42:39,692 1 INFO ? odoo.modules.loading: loading 1 modules... 
+odoo-1  | 2026-02-21 05:42:39,698 1 INFO ? odoo.modules.loading: 1 modules loaded in 0.01s, 0 queries (+0 extra) 
+odoo-1  | 2026-02-21 05:42:39,701 1 INFO ? odoo.modules.loading: loading 24 modules... 
+odoo-1  | 2026-02-21 05:42:39,713 1 INFO ? odoo.modules.loading: Loading module fleetflow (15/24) 
+odoo-1  | 2026-02-21 05:42:39,782 1 INFO ? odoo.modules.registry: module fleetflow: creating or updating database tables 
+odoo-1  | 2026-02-21 05:42:39,817 1 INFO ? odoo.modules.loading: loading fleetflow/security/security.xml 
+odoo-1  | 2026-02-21 05:42:39,870 1 ERROR ? odoo.sql_db: bad query: INSERT INTO "res_groups" ("category_id", "create_date", "create_uid", "name", "write_date", "write_uid") VALUES (92, '2026-02-21 05:42:39.691517', 1, '{"en_US": "Dispatcher"}', '2026-02-21 05:42:39.691517', 1) RETURNING "id"
+odoo-1  | ERROR: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  |  
+odoo-1  | 2026-02-21 05:42:39,875 1 WARNING ? odoo.modules.loading: Transient module states were reset 
+odoo-1  | 2026-02-21 05:42:39,875 1 ERROR ? odoo.modules.registry: Failed to load registry 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 87, in __new__
+odoo-1  |     return cls.registries[db_name]
+odoo-1  |   File "<decorator-gen-5>", line 2, in __getitem__
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/lru.py", line 34, in __getitem__
+odoo-1  |     a = self.d[obj]
+odoo-1  | KeyError: 'fleet_flow'
+odoo-1  | 
+odoo-1  | During handling of the above exception, another exception occurred:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 464, in _tag_record
+odoo-1  |     record = model._load_records([data], self.mode == 'update')
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5117, in _load_records
+odoo-1  |     records = self._load_records_create([data['values'] for data in to_create])
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5028, in _load_records_create
+odoo-1  |     return self.create(values)
+odoo-1  |   File "<decorator-gen-112>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1505, in create
+odoo-1  |     groups = super().create(vals_list)
+odoo-1  |   File "<decorator-gen-110>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1364, in create
+odoo-1  |     groups = super(GroupsImplied, self).create(vals_list)
+odoo-1  |   File "<decorator-gen-12>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4656, in create
+odoo-1  |     records = self._create(data_list)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4844, in _create
+odoo-1  |     cr.execute(SQL(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 342, in execute
+odoo-1  |     res = self._obj.execute(query, params)
+odoo-1  | psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  | 
+odoo-1  | 
+odoo-1  | The above exception was the direct cause of the following exception:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 110, in new
+odoo-1  |     odoo.modules.load_modules(registry, force_demo, status, update_module)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 481, in load_modules
+odoo-1  |     processed_modules += load_marked_modules(env, graph,
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 366, in load_marked_modules
+odoo-1  |     loaded, processed = load_module_graph(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 229, in load_module_graph
+odoo-1  |     load_data(env, idref, mode, kind='data', package=package)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 73, in load_data
+odoo-1  |     tools.convert_file(env, package.name, filename, idref, mode, noupdate, kind)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 682, in convert_file
+odoo-1  |     convert_xml_import(env, module, fp, idref, mode, noupdate)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 748, in convert_xml_import
+odoo-1  |     obj.parse(doc.getroot())
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 668, in parse
+odoo-1  |     self._tag_root(de)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 623, in _tag_root
+odoo-1  |     raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo-1  | odoo.tools.convert.ParseError: while parsing /mnt/extra-addons/fleetflow/security/security.xml:9, somewhere inside
+odoo-1  | <record id="group_dispatcher" model="res.groups">
+odoo-1  |             <field name="name">Dispatcher</field>
+odoo-1  |             <field name="category_id" ref="module_category_fleetflow"/>
+odoo-1  |         </record>
+odoo-1  | 2026-02-21 05:42:39,876 1 ERROR ? odoo.http: Exception during request handling. 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 87, in __new__
+odoo-1  |     return cls.registries[db_name]
+odoo-1  |   File "<decorator-gen-5>", line 2, in __getitem__
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/lru.py", line 34, in __getitem__
+odoo-1  |     a = self.d[obj]
+odoo-1  | KeyError: 'fleet_flow'
+odoo-1  | 
+odoo-1  | During handling of the above exception, another exception occurred:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 464, in _tag_record
+odoo-1  |     record = model._load_records([data], self.mode == 'update')
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5117, in _load_records
+odoo-1  |     records = self._load_records_create([data['values'] for data in to_create])
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5028, in _load_records_create
+odoo-1  |     return self.create(values)
+odoo-1  |   File "<decorator-gen-112>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1505, in create
+odoo-1  |     groups = super().create(vals_list)
+odoo-1  |   File "<decorator-gen-110>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1364, in create
+odoo-1  |     groups = super(GroupsImplied, self).create(vals_list)
+odoo-1  |   File "<decorator-gen-12>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4656, in create
+odoo-1  |     records = self._create(data_list)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4844, in _create
+odoo-1  |     cr.execute(SQL(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 342, in execute
+odoo-1  |     res = self._obj.execute(query, params)
+odoo-1  | psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  | 
+odoo-1  | 
+odoo-1  | The above exception was the direct cause of the following exception:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 2409, in __call__
+odoo-1  |     response = request._serve_db()
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 1962, in _serve_db
+odoo-1  |     self.registry = Registry(self.db).check_signaling()
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 89, in __new__
+odoo-1  |     return cls.new(db_name)
+odoo-1  |   File "<decorator-gen-16>", line 2, in new
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 110, in new
+odoo-1  |     odoo.modules.load_modules(registry, force_demo, status, update_module)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 481, in load_modules
+odoo-1  |     processed_modules += load_marked_modules(env, graph,
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 366, in load_marked_modules
+odoo-1  |     loaded, processed = load_module_graph(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 229, in load_module_graph
+odoo-1  |     load_data(env, idref, mode, kind='data', package=package)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 73, in load_data
+odoo-1  |     tools.convert_file(env, package.name, filename, idref, mode, noupdate, kind)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 682, in convert_file
+odoo-1  |     convert_xml_import(env, module, fp, idref, mode, noupdate)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 748, in convert_xml_import
+odoo-1  |     obj.parse(doc.getroot())
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 668, in parse
+odoo-1  |     self._tag_root(de)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 623, in _tag_root
+odoo-1  |     raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo-1  | odoo.tools.convert.ParseError: while parsing /mnt/extra-addons/fleetflow/security/security.xml:9, somewhere inside
+odoo-1  | <record id="group_dispatcher" model="res.groups">
+odoo-1  |             <field name="name">Dispatcher</field>
+odoo-1  |             <field name="category_id" ref="module_category_fleetflow"/>
+odoo-1  |         </record>
+odoo-1  | 2026-02-21 05:42:39,877 1 INFO ? werkzeug: 172.18.0.3 - - [21/Feb/2026 05:42:39] "GET /api/dashboard HTTP/1.1" 500 - 78 0.049 0.141
+odoo-1  | 2026-02-21 05:42:40,898 1 INFO ? odoo.modules.loading: loading 1 modules... 
+odoo-1  | 2026-02-21 05:42:40,904 1 INFO ? odoo.modules.loading: 1 modules loaded in 0.01s, 0 queries (+0 extra) 
+odoo-1  | 2026-02-21 05:42:40,907 1 INFO ? odoo.modules.loading: loading 24 modules... 
+odoo-1  | 2026-02-21 05:42:40,918 1 INFO ? odoo.modules.loading: Loading module fleetflow (15/24) 
+odoo-1  | 2026-02-21 05:42:40,979 1 INFO ? odoo.modules.registry: module fleetflow: creating or updating database tables 
+odoo-1  | 2026-02-21 05:42:41,009 1 INFO ? odoo.modules.loading: loading fleetflow/security/security.xml 
+odoo-1  | 2026-02-21 05:42:41,067 1 ERROR ? odoo.sql_db: bad query: INSERT INTO "res_groups" ("category_id", "create_date", "create_uid", "name", "write_date", "write_uid") VALUES (92, '2026-02-21 05:42:40.897473', 1, '{"en_US": "Dispatcher"}', '2026-02-21 05:42:40.897473', 1) RETURNING "id"
+odoo-1  | ERROR: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  |  
+odoo-1  | 2026-02-21 05:42:41,071 1 WARNING ? odoo.modules.loading: Transient module states were reset 
+odoo-1  | 2026-02-21 05:42:41,071 1 ERROR ? odoo.modules.registry: Failed to load registry 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 87, in __new__
+odoo-1  |     return cls.registries[db_name]
+odoo-1  |   File "<decorator-gen-5>", line 2, in __getitem__
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/lru.py", line 34, in __getitem__
+odoo-1  |     a = self.d[obj]
+odoo-1  | KeyError: 'fleet_flow'
+odoo-1  | 
+odoo-1  | During handling of the above exception, another exception occurred:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 464, in _tag_record
+odoo-1  |     record = model._load_records([data], self.mode == 'update')
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5117, in _load_records
+odoo-1  |     records = self._load_records_create([data['values'] for data in to_create])
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5028, in _load_records_create
+odoo-1  |     return self.create(values)
+odoo-1  |   File "<decorator-gen-112>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1505, in create
+odoo-1  |     groups = super().create(vals_list)
+odoo-1  |   File "<decorator-gen-110>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1364, in create
+odoo-1  |     groups = super(GroupsImplied, self).create(vals_list)
+odoo-1  |   File "<decorator-gen-12>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4656, in create
+odoo-1  |     records = self._create(data_list)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4844, in _create
+odoo-1  |     cr.execute(SQL(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 342, in execute
+odoo-1  |     res = self._obj.execute(query, params)
+odoo-1  | psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  | 
+odoo-1  | 
+odoo-1  | The above exception was the direct cause of the following exception:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 110, in new
+odoo-1  |     odoo.modules.load_modules(registry, force_demo, status, update_module)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 481, in load_modules
+odoo-1  |     processed_modules += load_marked_modules(env, graph,
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 366, in load_marked_modules
+odoo-1  |     loaded, processed = load_module_graph(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 229, in load_module_graph
+odoo-1  |     load_data(env, idref, mode, kind='data', package=package)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 73, in load_data
+odoo-1  |     tools.convert_file(env, package.name, filename, idref, mode, noupdate, kind)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 682, in convert_file
+odoo-1  |     convert_xml_import(env, module, fp, idref, mode, noupdate)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 748, in convert_xml_import
+odoo-1  |     obj.parse(doc.getroot())
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 668, in parse
+odoo-1  |     self._tag_root(de)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 623, in _tag_root
+odoo-1  |     raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo-1  | odoo.tools.convert.ParseError: while parsing /mnt/extra-addons/fleetflow/security/security.xml:9, somewhere inside
+odoo-1  | <record id="group_dispatcher" model="res.groups">
+odoo-1  |             <field name="name">Dispatcher</field>
+odoo-1  |             <field name="category_id" ref="module_category_fleetflow"/>
+odoo-1  |         </record>
+odoo-1  | 2026-02-21 05:42:41,072 1 ERROR ? odoo.http: Exception during request handling. 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 87, in __new__
+odoo-1  |     return cls.registries[db_name]
+odoo-1  |   File "<decorator-gen-5>", line 2, in __getitem__
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/lru.py", line 34, in __getitem__
+odoo-1  |     a = self.d[obj]
+odoo-1  | KeyError: 'fleet_flow'
+odoo-1  | 
+odoo-1  | During handling of the above exception, another exception occurred:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 464, in _tag_record
+odoo-1  |     record = model._load_records([data], self.mode == 'update')
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5117, in _load_records
+odoo-1  |     records = self._load_records_create([data['values'] for data in to_create])
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 5028, in _load_records_create
+odoo-1  |     return self.create(values)
+odoo-1  |   File "<decorator-gen-112>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1505, in create
+odoo-1  |     groups = super().create(vals_list)
+odoo-1  |   File "<decorator-gen-110>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 1364, in create
+odoo-1  |     groups = super(GroupsImplied, self).create(vals_list)
+odoo-1  |   File "<decorator-gen-12>", line 2, in create
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/api.py", line 431, in _model_create_multi
+odoo-1  |     return create(self, arg)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4656, in create
+odoo-1  |     records = self._create(data_list)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/models.py", line 4844, in _create
+odoo-1  |     cr.execute(SQL(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 342, in execute
+odoo-1  |     res = self._obj.execute(query, params)
+odoo-1  | psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "res_groups_name_uniq"
+odoo-1  | DETAIL:  Key (category_id, name)=(92, {"en_US": "Dispatcher"}) already exists.
+odoo-1  | 
+odoo-1  | 
+odoo-1  | The above exception was the direct cause of the following exception:
+odoo-1  | 
+odoo-1  | Traceback (most recent call last):
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 2409, in __call__
+odoo-1  |     response = request._serve_db()
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 1962, in _serve_db
+odoo-1  |     self.registry = Registry(self.db).check_signaling()
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 89, in __new__
+odoo-1  |     return cls.new(db_name)
+odoo-1  |   File "<decorator-gen-16>", line 2, in new
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 87, in locked
+odoo-1  |     return func(inst, *args, **kwargs)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/registry.py", line 110, in new
+odoo-1  |     odoo.modules.load_modules(registry, force_demo, status, update_module)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 481, in load_modules
+odoo-1  |     processed_modules += load_marked_modules(env, graph,
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 366, in load_marked_modules
+odoo-1  |     loaded, processed = load_module_graph(
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 229, in load_module_graph
+odoo-1  |     load_data(env, idref, mode, kind='data', package=package)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 73, in load_data
+odoo-1  |     tools.convert_file(env, package.name, filename, idref, mode, noupdate, kind)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 682, in convert_file
+odoo-1  |     convert_xml_import(env, module, fp, idref, mode, noupdate)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 748, in convert_xml_import
+odoo-1  |     obj.parse(doc.getroot())
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 668, in parse
+odoo-1  |     self._tag_root(de)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 610, in _tag_root
+odoo-1  |     f(rec)
+odoo-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 623, in _tag_root
+odoo-1  |     raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo-1  | odoo.tools.convert.ParseError: while parsing /mnt/extra-addons/fleetflow/security/security.xml:9, somewhere inside
+odoo-1  | <record id="group_dispatcher" model="res.groups">
+odoo-1  |             <field name="name">Dispatcher</field>
+odoo-1  |             <field name="category_id" ref="module_category_fleetflow"/>
+odoo-1  |         </record>
+odoo-1  | 2026-02-21 05:42:41,073 1 INFO ? werkzeug: 172.18.0.3 - - [21/Feb/2026 05:42:41] "GET /api/dashboard HTTP/1.1" 500 - 78 0.043 0.137

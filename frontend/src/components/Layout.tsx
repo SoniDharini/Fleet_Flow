@@ -33,15 +33,24 @@ export default function Layout() {
     navigate('/login');
   };
 
+  const activeRole = localStorage.getItem('activeRole') || 'manager';
+
+  const dashboardPaths: Record<string, string> = {
+    'manager': '/manager/dashboard',
+    'dispatcher': '/dispatcher/dashboard',
+    'safety': '/safety/dashboard',
+    'finance': '/finance/dashboard'
+  };
+
   const navItems = [
-    { text: 'Command Center', icon: <DashboardIcon sx={{ color: '#22D3EE' }} />, path: '/dashboard' },
-    { text: 'Vehicle Registry', icon: <TruckIcon sx={{ color: '#3B82F6' }} />, path: '/vehicles' },
-    { text: 'Trip Dispatcher', icon: <RouteIcon sx={{ color: '#8B5CF6' }} />, path: '/trips' },
-    { text: 'Service Logs', icon: <WrenchIcon sx={{ color: '#F59E0B' }} />, path: '/maintenance' },
-    { text: 'Fuel & Expenses', icon: <FuelIcon sx={{ color: '#10B981' }} />, path: '/fuel' },
-    { text: 'Driver Profiles', icon: <ShieldIcon sx={{ color: '#F87171' }} />, path: '/drivers' },
-    { text: 'Analytics & ROI', icon: <AnalyticsIcon sx={{ color: '#A78BFA' }} />, path: '/analytics' },
-  ];
+    { text: 'Command Center', icon: <DashboardIcon sx={{ color: '#22D3EE' }} />, path: dashboardPaths[activeRole] || '/dashboard', roles: ['manager', 'dispatcher', 'safety', 'finance'] },
+    { text: 'Vehicle Registry', icon: <TruckIcon sx={{ color: '#3B82F6' }} />, path: '/vehicles', roles: ['manager', 'dispatcher', 'safety', 'finance'] },
+    { text: 'Trip Dispatcher', icon: <RouteIcon sx={{ color: '#8B5CF6' }} />, path: '/trips', roles: ['manager', 'dispatcher', 'safety', 'finance'] },
+    { text: 'Service Logs', icon: <WrenchIcon sx={{ color: '#F59E0B' }} />, path: '/maintenance', roles: ['manager', 'finance'] },
+    { text: 'Fuel & Expenses', icon: <FuelIcon sx={{ color: '#10B981' }} />, path: '/fuel', roles: ['manager', 'finance'] },
+    { text: 'Driver Profiles', icon: <ShieldIcon sx={{ color: '#F87171' }} />, path: '/drivers', roles: ['manager', 'dispatcher', 'safety', 'finance'] },
+    { text: 'Analytics & ROI', icon: <AnalyticsIcon sx={{ color: '#A78BFA' }} />, path: '/analytics', roles: ['manager', 'finance'] },
+  ].filter(item => item.roles.includes(activeRole));
 
   const drawerContent = (
     <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>

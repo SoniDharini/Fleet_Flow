@@ -30,17 +30,20 @@ export default function Trips() {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['trips'] });
             setNewTrip({ vehicle_id: null, driver_id: null, source: '', destination: '', planned_start_date: '', cargo_weight: '', distance_km: '', revenue: '' });
-        }
+        },
+        onError: (err: any) => alert(err.response?.data?.message || err.response?.data?.error || "Error creating trip")
     });
 
     const dispatchMutation = useMutation({
         mutationFn: (trip_id: number) => axios.post('/api/trips/dispatch', { trip_id }),
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['trips'] })
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['trips'] }),
+        onError: (err: any) => alert(err.response?.data?.message || err.response?.data?.error || "Error dispatching trip")
     });
 
     const actionMutation = useMutation({
         mutationFn: (params: any) => axios.post('/api/trips/action', params),
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['trips'] })
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['trips'] }),
+        onError: (err: any) => alert(err.response?.data?.message || err.response?.data?.error || "Error updating trip status")
     });
 
     const availableVehicles = (vehicles || []).filter((v: any) => v.status === 'Available');
@@ -68,96 +71,101 @@ export default function Trips() {
         return 0;
     };
 
+    const activeRole = localStorage.getItem('activeRole') || 'manager';
+    const canManageTrips = activeRole === 'manager' || activeRole === 'dispatcher';
+
     return (
         <Box>
             <Typography variant="h4" fontWeight="bold" mb={3}>Trip Dispatcher</Typography>
 
             <Grid container spacing={3}>
                 {/* Left: Trip creation form */}
-                <Grid item xs={12} md={7}>
-                    <Paper sx={{
-                        p: 3,
-                        background: 'rgba(30, 41, 59, 0.7)',
-                        backdropFilter: 'blur(16px)',
-                        border: `1px solid ${isOverweight ? 'rgba(239, 68, 68, 0.5)' : 'rgba(255, 255, 255, 0.05)'}`,
-                        boxShadow: isOverweight ? '0 0 20px rgba(239, 68, 68, 0.2)' : '0 8px 32px rgba(0,0,0,0.3)',
-                        transition: 'all 0.3s'
-                    }}>
-                        <Typography variant="h6" fontWeight="bold" mb={3} color="#22D3EE">Create New Dispatch</Typography>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
-                                <TextField fullWidth label="Source" value={newTrip.source} onChange={e => setNewTrip({ ...newTrip, source: e.target.value })} />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField fullWidth label="Destination" value={newTrip.destination} onChange={e => setNewTrip({ ...newTrip, destination: e.target.value })} />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <FormControl fullWidth>
-                                    <InputLabel id="select-vehicle-label">Assign Vehicle</InputLabel>
-                                    <Select labelId="select-vehicle-label" label="Assign Vehicle" value={newTrip.vehicle_id || ''} onChange={e => setNewTrip({ ...newTrip, vehicle_id: e.target.value })}>
-                                        {availableVehicles.map((v: any) => (
-                                            <MenuItem key={v.id} value={v.id}>{v.name} ({v.license_plate}) - Max {v.max_load_capacity}kg</MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <FormControl fullWidth>
-                                    <InputLabel id="select-driver-label">Assign Driver</InputLabel>
-                                    <Select labelId="select-driver-label" label="Assign Driver" value={newTrip.driver_id || ''} onChange={e => setNewTrip({ ...newTrip, driver_id: e.target.value })}>
-                                        {availableDrivers.map((d: any) => (
-                                            <MenuItem key={d.id} value={d.id}>{d.name} (Score: {d.safety_score})</MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-                            <Grid item xs={12} sm={4}>
-                                <TextField
-                                    fullWidth
-                                    label="Cargo Weight (kg)"
-                                    type="number"
-                                    value={newTrip.cargo_weight}
-                                    onChange={e => setNewTrip({ ...newTrip, cargo_weight: e.target.value })}
-                                    error={!!isOverweight}
-                                    helperText={isOverweight ? `Exceeds max capacity (${selectedVehicleObj?.max_load_capacity}kg)` : ''}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={4}>
-                                <TextField fullWidth label="Distance (km)" type="number" value={newTrip.distance_km} onChange={e => setNewTrip({ ...newTrip, distance_km: e.target.value })} />
-                            </Grid>
-                            <Grid item xs={12} sm={4}>
-                                <TextField fullWidth label="Revenue ($)" type="number" value={newTrip.revenue} onChange={e => setNewTrip({ ...newTrip, revenue: e.target.value })} />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField fullWidth label="Planned Start Date" type="datetime-local" InputLabelProps={{ shrink: true }} value={newTrip.planned_start_date} onChange={e => setNewTrip({ ...newTrip, planned_start_date: e.target.value })} />
-                            </Grid>
+                {canManageTrips && (
+                    <Grid item xs={12} md={7}>
+                        <Paper sx={{
+                            p: 3,
+                            background: 'rgba(30, 41, 59, 0.7)',
+                            backdropFilter: 'blur(16px)',
+                            border: `1px solid ${isOverweight ? 'rgba(239, 68, 68, 0.5)' : 'rgba(255, 255, 255, 0.05)'}`,
+                            boxShadow: isOverweight ? '0 0 20px rgba(239, 68, 68, 0.2)' : '0 8px 32px rgba(0,0,0,0.3)',
+                            transition: 'all 0.3s'
+                        }}>
+                            <Typography variant="h6" fontWeight="bold" mb={3} color="#22D3EE">Create New Dispatch</Typography>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField fullWidth label="Source" value={newTrip.source} onChange={e => setNewTrip({ ...newTrip, source: e.target.value })} />
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField fullWidth label="Destination" value={newTrip.destination} onChange={e => setNewTrip({ ...newTrip, destination: e.target.value })} />
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <FormControl fullWidth>
+                                        <InputLabel id="select-vehicle-label">Assign Vehicle</InputLabel>
+                                        <Select labelId="select-vehicle-label" label="Assign Vehicle" value={newTrip.vehicle_id || ''} onChange={e => setNewTrip({ ...newTrip, vehicle_id: e.target.value })}>
+                                            {availableVehicles.map((v: any) => (
+                                                <MenuItem key={v.id} value={v.id}>{v.name} ({v.license_plate}) - Max {v.max_load_capacity}kg</MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <FormControl fullWidth>
+                                        <InputLabel id="select-driver-label">Assign Driver</InputLabel>
+                                        <Select labelId="select-driver-label" label="Assign Driver" value={newTrip.driver_id || ''} onChange={e => setNewTrip({ ...newTrip, driver_id: e.target.value })}>
+                                            {availableDrivers.map((d: any) => (
+                                                <MenuItem key={d.id} value={d.id}>{d.name} (Score: {d.safety_score})</MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
+                                <Grid item xs={12} sm={4}>
+                                    <TextField
+                                        fullWidth
+                                        label="Cargo Weight (kg)"
+                                        type="number"
+                                        value={newTrip.cargo_weight}
+                                        onChange={e => setNewTrip({ ...newTrip, cargo_weight: e.target.value })}
+                                        error={!!isOverweight}
+                                        helperText={isOverweight ? `Exceeds max capacity (${selectedVehicleObj?.max_load_capacity}kg)` : ''}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} sm={4}>
+                                    <TextField fullWidth label="Distance (km)" type="number" value={newTrip.distance_km} onChange={e => setNewTrip({ ...newTrip, distance_km: e.target.value })} />
+                                </Grid>
+                                <Grid item xs={12} sm={4}>
+                                    <TextField fullWidth label="Revenue (₹)" type="number" value={newTrip.revenue} onChange={e => setNewTrip({ ...newTrip, revenue: e.target.value })} />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField fullWidth label="Planned Start Date" type="datetime-local" InputLabelProps={{ shrink: true }} value={newTrip.planned_start_date} onChange={e => setNewTrip({ ...newTrip, planned_start_date: e.target.value })} />
+                                </Grid>
 
-                            <Grid item xs={12}>
-                                <Button
-                                    fullWidth
-                                    variant="contained"
-                                    size="large"
-                                    disabled={!!isOverweight || !newTrip.vehicle_id || !newTrip.driver_id || createMutation.isPending}
-                                    onClick={() => createMutation.mutate({
-                                        ...newTrip,
-                                        cargo_weight: parseFloat(newTrip.cargo_weight),
-                                        distance_km: parseFloat(newTrip.distance_km),
-                                        revenue: parseFloat(newTrip.revenue)
-                                    })}
-                                    sx={{
-                                        mt: 2,
-                                        background: isOverweight ? '#475569' : 'linear-gradient(90deg, #8B5CF6 0%, #3B82F6 100%)'
-                                    }}
-                                >
-                                    Create Draft Trip
-                                </Button>
+                                <Grid item xs={12}>
+                                    <Button
+                                        fullWidth
+                                        variant="contained"
+                                        size="large"
+                                        disabled={!!isOverweight || !newTrip.vehicle_id || !newTrip.driver_id || createMutation.isPending}
+                                        onClick={() => createMutation.mutate({
+                                            ...newTrip,
+                                            cargo_weight: parseFloat(newTrip.cargo_weight),
+                                            distance_km: parseFloat(newTrip.distance_km),
+                                            revenue: parseFloat(newTrip.revenue)
+                                        })}
+                                        sx={{
+                                            mt: 2,
+                                            background: isOverweight ? '#475569' : 'linear-gradient(90deg, #8B5CF6 0%, #3B82F6 100%)'
+                                        }}
+                                    >
+                                        Create Draft Trip
+                                    </Button>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </Paper>
-                </Grid>
+                        </Paper>
+                    </Grid>
+                )}
 
                 {/* Right: Available Vehicles & Drivers */}
-                <Grid item xs={12} md={5}>
+                <Grid item xs={12} md={canManageTrips ? 5 : 12}>
                     <Paper sx={{ p: 3, background: 'rgba(30, 41, 59, 0.7)', backdropFilter: 'blur(16px)', border: '1px solid rgba(255, 255, 255, 0.05)', height: '100%' }}>
                         <Typography variant="h6" fontWeight="bold" mb={2} color="#10B981">Available Resources</Typography>
 
@@ -217,17 +225,19 @@ export default function Trips() {
                                         <Typography variant="body2"><strong>Vehicle:</strong> {trip.vehicle_name}</Typography>
                                     </Box>
 
-                                    <Box display="flex" flexDirection="column" gap={1}>
-                                        {trip.state === 'Draft' && (
-                                            <Button variant="contained" size="small" onClick={() => dispatchMutation.mutate(trip.id)}>Dispatch</Button>
-                                        )}
-                                        {trip.state === 'Dispatched' && (
-                                            <Box display="flex" gap={1}>
-                                                <IconButton color="success" size="small" onClick={() => actionMutation.mutate({ trip_id: trip.id, action: 'complete' })}><CheckIcon /></IconButton>
-                                                <IconButton color="error" size="small" onClick={() => actionMutation.mutate({ trip_id: trip.id, action: 'cancel' })}><CancelIcon /></IconButton>
-                                            </Box>
-                                        )}
-                                    </Box>
+                                    {canManageTrips && (
+                                        <Box display="flex" flexDirection="column" gap={1}>
+                                            {trip.state === 'Draft' && (
+                                                <Button variant="contained" size="small" onClick={() => dispatchMutation.mutate(trip.id)}>Dispatch</Button>
+                                            )}
+                                            {trip.state === 'Dispatched' && (
+                                                <Box display="flex" gap={1}>
+                                                    <IconButton color="success" size="small" onClick={() => actionMutation.mutate({ trip_id: trip.id, action: 'complete' })}><CheckIcon /></IconButton>
+                                                    <IconButton color="error" size="small" onClick={() => actionMutation.mutate({ trip_id: trip.id, action: 'cancel' })}><CancelIcon /></IconButton>
+                                                </Box>
+                                            )}
+                                        </Box>
+                                    )}
                                 </Paper>
                             </Grid>
                         )

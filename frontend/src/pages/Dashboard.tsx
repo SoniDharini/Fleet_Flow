@@ -77,9 +77,10 @@ export default function Dashboard() {
             }}
           >
             <MenuItem value="all">All Regions</MenuItem>
-            <MenuItem value="north">North America</MenuItem>
-            <MenuItem value="europe">Europe</MenuItem>
-            <MenuItem value="apac">APAC</MenuItem>
+            <MenuItem value="north">North India</MenuItem>
+            <MenuItem value="south">South India</MenuItem>
+            <MenuItem value="west">West India</MenuItem>
+            <MenuItem value="east">East India</MenuItem>
           </Select>
         </FormControl>
       </Box>

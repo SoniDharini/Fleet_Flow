@@ -3,6 +3,20 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import axios from 'axios'
+
+axios.defaults.withCredentials = true;
+axios.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      if (window.location.pathname !== '/login') {
+        window.location.href = '/login';
+      }
+    }
+    return Promise.reject(error);
+  }
+);
 
 const theme = createTheme({
   palette: {
@@ -13,7 +27,7 @@ const theme = createTheme({
     success: { main: '#10B981' }, // Green
     warning: { main: '#F59E0B' }, // Yellow
     error: { main: '#EF4444' }, // Red
-    background: { 
+    background: {
       default: '#0F172A',
       paper: 'rgba(30, 41, 59, 0.7)' // Glass effect base
     },

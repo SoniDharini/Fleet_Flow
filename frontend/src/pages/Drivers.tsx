@@ -1,12 +1,13 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { Box, Typography, Grid, Paper, Chip, Avatar, CircularProgress, LinearProgress } from '@mui/material';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { Box, Typography, Grid, Paper, Chip, Avatar, CircularProgress, LinearProgress, Button } from '@mui/material';
 import { Security as ShieldIcon, Warning as WarningIcon, LocalShipping as TruckIcon } from '@mui/icons-material';
 import axios from 'axios';
 
 const fetchDrivers = async () => (await axios.get('/api/drivers')).data;
 
 export default function Drivers() {
+    const queryClient = useQueryClient();
     const { data: drivers, isLoading } = useQuery({ queryKey: ['drivers'], queryFn: fetchDrivers });
 
     if (isLoading) return <Box display="flex" justifyContent="center" mt={10}><CircularProgress sx={{ color: '#F87171' }} /></Box>;
@@ -117,6 +118,35 @@ export default function Drivers() {
                                         {isExpired ? 'License Expired!' : isExpiringSoon ? `License expires in ${daysToExpiry} days` : 'Licensing Compliant'}
                                     </Typography>
                                 </Box>
+
+                                {['manager', 'safety'].includes(localStorage.getItem('activeRole') || '') && (
+                                    <Box mt={2} pt={2} sx={{ borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'space-between', gap: 1 }}>
+                                        <Button
+                                            size="small"
+                                            variant="outlined"
+                                            color={driver.status === 'Suspended' ? 'success' : 'error'}
+                                            onClick={() => {
+                                                axios.post('/api/drivers/action', { driver_id: driver.id, status: driver.status === 'Suspended' ? 'On Duty' : 'Suspended' })
+                                                    .then(() => queryClient.invalidateQueries({ queryKey: ['drivers'] }));
+                                            }}
+                                        >
+                                            {driver.status === 'Suspended' ? 'Activate' : 'Suspend'}
+                                        </Button>
+                                        <Button
+                                            size="small"
+                                            variant="outlined"
+                                            onClick={() => {
+                                                const score = prompt('Enter new safety score (0-100):', driver.safety_score);
+                                                if (score && !isNaN(parseInt(score))) {
+                                                    axios.post('/api/drivers/action', { driver_id: driver.id, safety_score: parseInt(score) })
+                                                        .then(() => queryClient.invalidateQueries({ queryKey: ['drivers'] }));
+                                                }
+                                            }}
+                                        >
+                                            Set Score
+                                        </Button>
+                                    </Box>
+                                )}
                             </Paper>
                         </Grid>
                     );

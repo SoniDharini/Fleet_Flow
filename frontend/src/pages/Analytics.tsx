@@ -17,14 +17,14 @@ export default function Analytics() {
     // Transforming data for charts
     const roiData = vehicleStats.map((v: any) => ({
         name: v.license_plate,
-        roi: v.acquisition_cost > 0 ? (((v.vehicle_revenue - v.total_operational_cost) / v.acquisition_cost) * 100).toFixed(1) : 0,
+        roi: v.acquisition_cost > 0 ? parseFloat((((v.vehicle_revenue - v.total_operational_cost) / v.acquisition_cost) * 100).toFixed(1)) : 0,
         revenue: v.vehicle_revenue,
         cost: v.total_operational_cost
     })).sort((a: any, b: any) => b.roi - a.roi);
 
     const efficiencyData = vehicleStats.map((v: any) => ({
         name: v.license_plate,
-        efficiency: v.fuel_efficiency.toFixed(2)
+        efficiency: parseFloat(v.fuel_efficiency.toFixed(2))
     })).sort((a: any, b: any) => b.efficiency - a.efficiency);
 
     const netProfit = (data?.total_revenue || 0) - (data?.total_fuel_cost || 0) - (data?.total_maintenance_cost || 0);
@@ -46,7 +46,7 @@ export default function Analytics() {
                             <Box p={1} borderRadius={2} bgcolor="rgba(16, 185, 129, 0.2)" color="#10B981"><RevenueIcon /></Box>
                             <Typography variant="h6" color="text.secondary">Total Revenue</Typography>
                         </Box>
-                        <Typography variant="h3" fontWeight="bold" color="#fff">${data?.total_revenue?.toFixed(2) || '0.00'}</Typography>
+                        <Typography variant="h3" fontWeight="bold" color="#fff">₹{data?.total_revenue?.toFixed(2) || '0.00'}</Typography>
                     </Paper>
                 </Grid>
                 <Grid item xs={12} md={4}>
@@ -55,8 +55,8 @@ export default function Analytics() {
                             <Box p={1} borderRadius={2} bgcolor="rgba(239, 68, 68, 0.2)" color="#EF4444"><OperationIcon /></Box>
                             <Typography variant="h6" color="text.secondary">Operational Costs</Typography>
                         </Box>
-                        <Typography variant="h3" fontWeight="bold" color="#fff">${((data?.total_fuel_cost || 0) + (data?.total_maintenance_cost || 0)).toFixed(2)}</Typography>
-                        <Typography variant="body2" color="#FCA5A5" mt={1}>Fuel: ${data?.total_fuel_cost?.toFixed(2)} | Maint: ${data?.total_maintenance_cost?.toFixed(2)}</Typography>
+                        <Typography variant="h3" fontWeight="bold" color="#fff">₹{((data?.total_fuel_cost || 0) + (data?.total_maintenance_cost || 0)).toFixed(2)}</Typography>
+                        <Typography variant="body2" color="#FCA5A5" mt={1}>Fuel: ₹{data?.total_fuel_cost?.toFixed(2)} | Maint: ₹{data?.total_maintenance_cost?.toFixed(2)}</Typography>
                     </Paper>
                 </Grid>
                 <Grid item xs={12} md={4}>
@@ -65,7 +65,7 @@ export default function Analytics() {
                             <Box p={1} borderRadius={2} bgcolor="rgba(59, 130, 246, 0.2)" color="#3B82F6"><OperationIcon /></Box>
                             <Typography variant="h6" color="text.secondary">Net Fleet Profit</Typography>
                         </Box>
-                        <Typography variant="h3" fontWeight="bold" color={netProfit >= 0 ? '#10B981' : '#EF4444'}>${Math.abs(netProfit).toFixed(2)}</Typography>
+                        <Typography variant="h3" fontWeight="bold" color={netProfit >= 0 ? '#10B981' : '#EF4444'}>₹{Math.abs(netProfit).toFixed(2)}</Typography>
                     </Paper>
                 </Grid>
             </Grid>
@@ -76,11 +76,11 @@ export default function Analytics() {
                         <Typography variant="h6" fontWeight="bold" mb={3} color="#22D3EE">Vehicle ROI Calculation (%)</Typography>
                         <Typography variant="body2" color="text.secondary" mb={3}>(Revenue - Configured Cost) / Acquisition Cost</Typography>
                         <ResponsiveContainer width="100%" height={260}>
-                            <BarChart data={roiData} layout="vertical" margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                            <BarChart data={roiData} layout="vertical" margin={{ top: 5, right: 40, left: 10, bottom: 5 }}>
                                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" horizontal={false} />
-                                <XAxis type="number" stroke="#94A3B8" />
-                                <YAxis dataKey="name" type="category" stroke="#94A3B8" width={80} />
-                                <Tooltip cursor={{ fill: 'rgba(255,255,255,0.05)' }} contentStyle={{ backgroundColor: '#1E293B', borderColor: '#8B5CF6' }} />
+                                <XAxis type="number" stroke="#94A3B8" tickFormatter={(value) => `${value}%`} />
+                                <YAxis dataKey="name" type="category" stroke="#94A3B8" width={120} tick={{ fontSize: 13 }} />
+                                <Tooltip cursor={{ fill: 'rgba(255,255,255,0.05)' }} contentStyle={{ backgroundColor: '#1E293B', borderColor: '#8B5CF6' }} formatter={(val) => `${val}%`} />
                                 <Bar dataKey="roi" fill="#8B5CF6" radius={[0, 4, 4, 0]} />
                             </BarChart>
                         </ResponsiveContainer>
@@ -91,9 +91,9 @@ export default function Analytics() {
                     <Paper sx={{ p: 3, background: 'rgba(30, 41, 59, 0.6)', backdropFilter: 'blur(16px)', border: '1px solid rgba(255,255,255,0.05)', height: 400 }}>
                         <Typography variant="h6" fontWeight="bold" mb={3} color="#10B981">Fuel Efficiency Trends (km/L)</Typography>
                         <ResponsiveContainer width="100%" height={280}>
-                            <LineChart data={efficiencyData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                            <LineChart data={efficiencyData} margin={{ top: 5, right: 40, left: 10, bottom: 5 }}>
                                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                                <XAxis dataKey="name" stroke="#94A3B8" />
+                                <XAxis dataKey="name" stroke="#94A3B8" tick={{ fontSize: 12 }} />
                                 <YAxis stroke="#94A3B8" />
                                 <Tooltip contentStyle={{ backgroundColor: '#1E293B', borderColor: '#10B981' }} />
                                 <Legend />
