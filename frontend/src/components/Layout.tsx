@@ -1,48 +1,163 @@
-import { Box, Drawer, List, ListItem, ListItemText, AppBar, Toolbar, Typography, Button } from '@mui/material';
-import { Outlet, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Box, Drawer, List, ListItemText, AppBar, Toolbar, Typography, Button, IconButton, Badge, Avatar, ListItemButton, ListItemIcon } from '@mui/material';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import {
+  Menu as MenuIcon,
+  Notifications as NotificationsIcon,
+  Dashboard as DashboardIcon,
+  LocalShipping as TruckIcon,
+  Route as RouteIcon,
+  Build as WrenchIcon,
+  EvStation as FuelIcon,
+  Security as ShieldIcon,
+  Analytics as AnalyticsIcon,
+  ExitToApp as LogoutIcon
+} from '@mui/icons-material';
 
-const drawerWidth = 240;
+const drawerWidth = 260;
 
 export default function Layout() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
 
   const handleLogout = async () => {
-    await axios.post('/api/auth/logout');
+    try {
+      await axios.post('/api/auth/logout');
+    } catch (e) { }
     navigate('/login');
   };
 
+  const navItems = [
+    { text: 'Command Center', icon: <DashboardIcon sx={{ color: '#22D3EE' }} />, path: '/dashboard' },
+    { text: 'Vehicle Registry', icon: <TruckIcon sx={{ color: '#3B82F6' }} />, path: '/vehicles' },
+    { text: 'Trip Dispatcher', icon: <RouteIcon sx={{ color: '#8B5CF6' }} />, path: '/trips' },
+    { text: 'Service Logs', icon: <WrenchIcon sx={{ color: '#F59E0B' }} />, path: '/maintenance' },
+    { text: 'Fuel & Expenses', icon: <FuelIcon sx={{ color: '#10B981' }} />, path: '/fuel' },
+    { text: 'Driver Profiles', icon: <ShieldIcon sx={{ color: '#F87171' }} />, path: '/drivers' },
+    { text: 'Analytics & ROI', icon: <AnalyticsIcon sx={{ color: '#A78BFA' }} />, path: '/analytics' },
+  ];
+
+  const drawerContent = (
+    <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <Toolbar sx={{ my: 2, display: 'flex', justifyContent: 'center' }}>
+        <Typography variant="h5" fontWeight="bold" sx={{
+          background: 'linear-gradient(90deg, #3B82F6 0%, #22D3EE 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          letterSpacing: '1px'
+        }}>
+          FLEETFLOW
+        </Typography>
+      </Toolbar>
+      <List sx={{ px: 2, flexGrow: 1 }}>
+        {navItems.map((item) => {
+          const isActive = location.pathname.startsWith(item.path);
+          return (
+            <ListItemButton
+              key={item.text}
+              onClick={() => navigate(item.path)}
+              sx={{
+                mb: 1,
+                borderRadius: '12px',
+                background: isActive ? 'rgba(59, 130, 246, 0.15)' : 'transparent',
+                border: isActive ? '1px solid rgba(59, 130, 246, 0.3)' : '1px solid transparent',
+                transition: 'all 0.2s',
+                '&:hover': {
+                  background: 'rgba(59, 130, 246, 0.2)',
+                  transform: 'translateX(4px)'
+                }
+              }}
+            >
+              <ListItemIcon sx={{ minWidth: 40, dropShadow: isActive ? '0 0 8px rgba(34, 211, 238, 0.8)' : 'none' }}>
+                {item.icon}
+              </ListItemIcon>
+              <ListItemText
+                primary={item.text}
+                primaryTypographyProps={{
+                  fontWeight: isActive ? 600 : 400,
+                  color: isActive ? '#fff' : '#94A3B8'
+                }}
+              />
+            </ListItemButton>
+          );
+        })}
+      </List>
+      <Box sx={{ p: 2 }}>
+        <Button
+          fullWidth
+          variant="outlined"
+          color="error"
+          startIcon={<LogoutIcon />}
+          onClick={handleLogout}
+          sx={{ borderRadius: '12px', borderColor: 'rgba(239, 68, 68, 0.3)' }}
+        >
+          Logout
+        </Button>
+      </Box>
+    </Box>
+  );
+
   return (
-    <Box sx={{ display: 'flex' }}>
-      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-        <Toolbar>
-          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-            FleetFlow
-          </Typography>
-          <Button color="inherit" onClick={handleLogout}>Logout</Button>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        variant="permanent"
+    <Box sx={{ display: 'flex', minHeight: '100vh' }}>
+      <AppBar
+        position="fixed"
+        elevation={0}
         sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': { width: drawerWidth, boxSizing: 'border-box' },
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          ml: { sm: `${drawerWidth}px` },
+          background: 'rgba(15, 23, 42, 0.6)',
+          backdropFilter: 'blur(16px)',
+          borderBottom: '1px solid rgba(255,255,255,0.05)'
         }}
       >
-        <Toolbar />
-        <Box sx={{ overflow: 'auto' }}>
-          <List>
-            <ListItem button onClick={() => navigate('/dashboard')}>
-              <ListItemText primary="Dashboard" />
-            </ListItem>
-            <ListItem button onClick={() => navigate('/vehicles')}>
-              <ListItemText primary="Vehicles" />
-            </ListItem>
-          </List>
-        </Box>
-      </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <Toolbar>
+          <IconButton color="inherit" edge="start" onClick={handleDrawerToggle} sx={{ mr: 2, display: { sm: 'none' } }}>
+            <MenuIcon />
+          </IconButton>
+          <Box sx={{ flexGrow: 1 }} />
+          <IconButton color="inherit" sx={{ mr: 2 }}>
+            <Badge badgeContent={3} color="error">
+              <NotificationsIcon sx={{ color: '#94A3B8' }} />
+            </Badge>
+          </IconButton>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, background: 'rgba(30, 41, 59, 0.5)', p: 0.5, pr: 2, borderRadius: '24px', border: '1px solid rgba(255,255,255,0.05)' }}>
+            <Avatar sx={{ width: 32, height: 32, bgcolor: '#3B82F6' }}>A</Avatar>
+            <Typography variant="body2" fontWeight="500">Admin</Typography>
+          </Box>
+        </Toolbar>
+      </AppBar>
+
+      <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}>
+        <Drawer
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{ keepMounted: true }}
+          sx={{
+            display: { xs: 'block', sm: 'none' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          }}
+        >
+          {drawerContent}
+        </Drawer>
+        <Drawer
+          variant="permanent"
+          sx={{
+            display: { xs: 'none', sm: 'block' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, background: 'rgba(15, 23, 42, 0.4)', backdropFilter: 'blur(20px)', borderRight: '1px solid rgba(255,255,255,0.05)' },
+          }}
+          open
+        >
+          {drawerContent}
+        </Drawer>
+      </Box>
+      <Box component="main" sx={{ flexGrow: 1, p: 4, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
         <Toolbar />
         <Outlet />
       </Box>
