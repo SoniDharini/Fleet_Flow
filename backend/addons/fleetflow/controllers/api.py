@@ -1,6 +1,9 @@
 import json
+from datetime import date, datetime
 from odoo import http
 from odoo.http import request
+
+_STATIC_ALERTS = []
 
 class FleetFlowAPI(http.Controller):
 
@@ -277,7 +280,53 @@ class FleetFlowAPI(http.Controller):
             trip = request.env['fleetflow.trip'].sudo().create(params)
             return self._response({'id': trip.id})
         except Exception as e:
+            if "Too heavy" in str(e):
+                vehicle = request.env['fleetflow.vehicle'].sudo().browse(params.get('vehicle_id'))
+                if vehicle:
+                    _STATIC_ALERTS.insert(0, {
+                        'id': f"ow_{datetime.now().timestamp()}",
+                        'title': 'Overweight Attempt',
+                        'message': f"Attempted to dispatch {params.get('cargo_weight', 0)}kg on {vehicle.name} (limit: {vehicle.max_load_capacity}kg).",
+                        'type': 'error',
+                        'timestamp': str(datetime.now())
+                    })
             return self._response({'error': str(e)}, 400)
+
+    @http.route('/api/alerts', type='http', auth='public', methods=['GET'], cors='*', csrf=False)
+    def get_alerts(self):
+        if not self._auth_check(): return self._response({'error': 'Unauthorized'}, 401)
+        
+        alerts = []
+        alerts.extend(_STATIC_ALERTS[:15])
+        
+        # Vehicles
+        vehicles = request.env['fleetflow.vehicle'].sudo().search([])
+        for v in vehicles:
+            if v.status == 'In Shop':
+                alerts.append({'id': f'v_shop_{v.id}', 'title': 'Vehicle In Shop', 'message': f'{v.name} ({v.license_plate}) is undergoing maintenance.', 'type': 'info', 'timestamp': str(datetime.now())})
+            elif v.status == 'Available' and v.odometer > 5000:
+                alerts.append({'id': f'v_maint_{v.id}', 'title': 'Maintenance Due', 'message': f'{v.name} ({v.license_plate}) has crossed the 5000km service threshold.', 'type': 'warning', 'timestamp': str(datetime.now())})
+                
+        # Drivers
+        drivers = request.env['fleetflow.driver'].sudo().search([])
+        today = date.today()
+        for d in drivers:
+            if d.license_expiry_date:
+                days = (d.license_expiry_date - today).days
+                if days < 0:
+                    alerts.append({'id': f'd_exp_{d.id}', 'title': 'License Expired', 'message': f"Safety Lock: {d.name}'s license expired {abs(days)} days ago.", 'type': 'error', 'timestamp': str(datetime.now())})
+                elif days <= 30:
+                    alerts.append({'id': f'd_exp_warn_{d.id}', 'title': 'License Expiring', 'message': f"{d.name}'s license expires in {days} days.", 'type': 'warning', 'timestamp': str(datetime.now())})
+                    
+        # Trips
+        trips = request.env['fleetflow.trip'].sudo().search([('state', 'in', ['Draft', 'Dispatched'])])
+        now = datetime.now()
+        for t in trips:
+            if t.planned_start_date:
+                if t.planned_start_date < now:
+                    alerts.append({'id': f't_delay_{t.id}', 'title': 'Trip Delayed', 'message': f"Trip {t.name} from {t.source} is behind schedule.", 'type': 'error', 'timestamp': str(datetime.now())})
+                    
+        return self._response(alerts)
 
     @http.route('/api/drivers', type='http', auth='public', methods=['GET'], cors='*', csrf=False)
     def get_drivers(self):

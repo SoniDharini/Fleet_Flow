@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Drawer, List, ListItemText, AppBar, Toolbar, Typography, Button, IconButton, Badge, Avatar, ListItemButton, ListItemIcon } from '@mui/material';
+import { Box, Drawer, List, ListItemText, AppBar, Toolbar, Typography, Button, IconButton, Badge, Avatar, ListItemButton, ListItemIcon, Popover, Divider, Chip } from '@mui/material';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
@@ -13,7 +13,10 @@ import {
   EvStation as FuelIcon,
   Security as ShieldIcon,
   Analytics as AnalyticsIcon,
-  ExitToApp as LogoutIcon
+  ExitToApp as LogoutIcon,
+  Warning as WarningIcon,
+  Error as ErrorIcon,
+  Info as InfoIcon
 } from '@mui/icons-material';
 
 const drawerWidth = 260;
@@ -29,6 +32,17 @@ export default function Layout() {
   });
   const userName = user?.name || 'Loading...';
   const userInitial = user?.name ? user.name.charAt(0).toUpperCase() : '';
+
+  const { data: alerts } = useQuery({
+    queryKey: ['alerts'],
+    queryFn: async () => (await axios.get('/api/alerts')).data,
+    refetchInterval: 10000
+  });
+
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const handleAlertsClick = (event: React.MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget);
+  const handleAlertsClose = () => setAnchorEl(null);
+  const openAlerts = Boolean(anchorEl);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -138,11 +152,43 @@ export default function Layout() {
             <MenuIcon />
           </IconButton>
           <Box sx={{ flexGrow: 1 }} />
-          <IconButton color="inherit" sx={{ mr: 2 }}>
-            <Badge badgeContent={3} color="error">
+          <IconButton color="inherit" onClick={handleAlertsClick} sx={{ mr: 2 }}>
+            <Badge badgeContent={alerts?.length || 0} color="error">
               <NotificationsIcon sx={{ color: '#94A3B8' }} />
             </Badge>
           </IconButton>
+          <Popover
+            open={openAlerts}
+            anchorEl={anchorEl}
+            onClose={handleAlertsClose}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+            PaperProps={{ sx: { width: 360, background: 'rgba(30, 41, 59, 1)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', mt: 1.5, borderRadius: 2 } }}
+          >
+            <Box p={2} display="flex" justifyContent="space-between" alignItems="center">
+              <Typography variant="h6" fontWeight="bold">Notification Center</Typography>
+              <Chip size="small" label={`${alerts?.length || 0} Alerts`} color="error" />
+            </Box>
+            <Divider sx={{ borderColor: 'rgba(255,255,255,0.1)' }} />
+            <List sx={{ p: 0, maxHeight: 400, overflow: 'auto' }}>
+              {(alerts || []).length === 0 ? (
+                <Box p={3} textAlign="center"><Typography variant="body2" color="text.secondary">All systems normal. No active alerts.</Typography></Box>
+              ) : (alerts || []).map((alert: any) => (
+                <Box key={alert.id}>
+                  <ListItemButton sx={{ '&:hover': { background: 'rgba(255,255,255,0.05)' }, px: 2, py: 1.5 }}>
+                    <ListItemIcon sx={{ minWidth: 40 }}>
+                      {alert.type === 'error' ? <ErrorIcon color="error" /> : alert.type === 'warning' ? <WarningIcon color="warning" /> : <InfoIcon color="info" />}
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={<Typography variant="body2" fontWeight="bold" color={alert.type === 'error' ? '#EF4444' : alert.type === 'warning' ? '#F59E0B' : '#3B82F6'}>{alert.title}</Typography>}
+                      secondary={<Typography variant="caption" color="#94A3B8" sx={{ display: 'block', mt: 0.5, lineHeight: 1.2 }}>{alert.message}</Typography>}
+                    />
+                  </ListItemButton>
+                  <Divider sx={{ borderColor: 'rgba(255,255,255,0.05)' }} />
+                </Box>
+              ))}
+            </List>
+          </Popover>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, background: 'rgba(30, 41, 59, 0.5)', p: 0.5, pr: 2, borderRadius: '24px', border: '1px solid rgba(255,255,255,0.05)' }}>
             <Avatar sx={{ width: 32, height: 32, bgcolor: '#3B82F6' }}>{userInitial}</Avatar>
             <Typography variant="body2" fontWeight="500">{userName}</Typography>
