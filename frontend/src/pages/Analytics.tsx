@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Box, Typography, Grid, Paper, Divider, Button, CircularProgress } from '@mui/material';
-import { Download as DownloadIcon, LocalAtm as RevenueIcon, SettingsSuggest as OperationIcon, Commute as FuelIcon } from '@mui/icons-material';
+import { Download as DownloadIcon, LocalAtm as RevenueIcon, SettingsSuggest as OperationIcon, Commute as FuelIcon, WarningAmber as WarningAmberIcon } from '@mui/icons-material';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import axios from 'axios';
 
@@ -29,13 +29,31 @@ export default function Analytics() {
 
     const netProfit = (data?.total_revenue || 0) - (data?.total_fuel_cost || 0) - (data?.total_maintenance_cost || 0);
 
+    const deadStockVehicles = vehicleStats.filter((v: any) => v.status === 'Available' && v.vehicle_revenue === 0);
+
+    const handleDownloadCSV = () => {
+        const headers = ["ID", "Name", "License Plate", "Status", "Revenue (INR)", "Operational Cost (INR)", "ROI (%)"];
+        const rows = vehicleStats.map((v: any) => [
+            v.id, v.name, v.license_plate, v.status || 'Unknown', v.vehicle_revenue, v.total_operational_cost,
+            v.acquisition_cost > 0 ? (((v.vehicle_revenue - v.total_operational_cost) / v.acquisition_cost) * 100).toFixed(1) : 0
+        ]);
+        const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map((r: any[]) => r.join(","))].join("\n");
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "fleet_analytics_report.csv");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
     return (
         <Box>
             <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
                 <Typography variant="h4" fontWeight="bold">Operational Analytics</Typography>
                 <Box>
-                    <Button variant="outlined" startIcon={<DownloadIcon />} sx={{ mr: 2, borderColor: 'rgba(255,255,255,0.2)', color: '#fff' }}>CSV</Button>
-                    <Button variant="contained" startIcon={<DownloadIcon />} sx={{ background: 'linear-gradient(90deg, #8B5CF6 0%, #A78BFA 100%)' }}>PDF Report</Button>
+                    <Button variant="outlined" startIcon={<DownloadIcon />} onClick={handleDownloadCSV} sx={{ mr: 2, borderColor: 'rgba(255,255,255,0.2)', color: '#fff' }}>CSV</Button>
+                    <Button variant="contained" startIcon={<DownloadIcon />} onClick={() => window.print()} sx={{ background: 'linear-gradient(90deg, #8B5CF6 0%, #A78BFA 100%)' }}>PDF Report</Button>
                 </Box>
             </Box>
 
@@ -100,6 +118,50 @@ export default function Analytics() {
                                 <Line type="monotone" dataKey="efficiency" stroke="#10B981" strokeWidth={3} dot={{ r: 4, fill: '#10B981', strokeWidth: 0 }} activeDot={{ r: 8 }} />
                             </LineChart>
                         </ResponsiveContainer>
+                    </Paper>
+                </Grid>
+            </Grid>
+
+            {/* Dead Stock Alerts Section */}
+            <Grid container spacing={4} sx={{ mt: 1, mb: 4 }}>
+                <Grid item xs={12}>
+                    <Paper sx={{ p: 4, background: 'rgba(30, 41, 59, 0.6)', backdropFilter: 'blur(16px)', border: '1px solid rgba(239, 68, 68, 0.4)', borderRadius: 3 }}>
+                        <Box display="flex" alignItems="center" gap={2} mb={3}>
+                            <Box p={1.5} borderRadius={2} bgcolor="rgba(239, 68, 68, 0.2)" color="#EF4444" display="flex"><WarningAmberIcon fontSize="medium" /></Box>
+                            <Box>
+                                <Typography variant="h6" fontWeight="bold" color="#FCA5A5">Dead Stock Alerts</Typography>
+                                <Typography variant="body2" color="text.secondary">Vehicles sitting idle without bringing in revenue.</Typography>
+                            </Box>
+                        </Box>
+
+                        {deadStockVehicles.length === 0 ? (
+                            <Box p={3} textAlign="center" sx={{ background: 'rgba(16, 185, 129, 0.05)', borderRadius: 2, border: '1px dashed rgba(16, 185, 129, 0.3)' }}>
+                                <Typography color="#10B981" fontWeight="bold" variant="h6">Great shape!</Typography>
+                                <Typography color="text.secondary">All your available vehicles are actively contributing to revenue.</Typography>
+                            </Box>
+                        ) : (
+                            <Grid container spacing={3}>
+                                {deadStockVehicles.map((v: any) => (
+                                    <Grid item xs={12} sm={6} md={4} lg={3} key={v.id}>
+                                        <Paper sx={{ p: 2.5, background: 'rgba(239, 68, 68, 0.05)', border: '1px solid rgba(239, 68, 68, 0.2)', transition: 'all 0.2s', '&:hover': { transform: 'translateY(-4px)', boxShadow: '0 8px 16px rgba(239, 68, 68, 0.1)' } }}>
+                                            <Typography fontWeight="bold" color="#fff" variant="subtitle1">{v.name}</Typography>
+                                            <Typography variant="body2" color="#94A3B8" mb={2}>{v.license_plate}</Typography>
+
+                                            <Divider sx={{ my: 1.5, borderColor: 'rgba(239, 68, 68, 0.15)' }} />
+
+                                            <Box display="flex" justifyContent="space-between" mb={1}>
+                                                <Typography variant="body2" color="text.secondary">Lifetime Revenue</Typography>
+                                                <Typography variant="body2" color="#EF4444" fontWeight="bold">₹{v.vehicle_revenue}</Typography>
+                                            </Box>
+                                            <Box display="flex" justifyContent="space-between">
+                                                <Typography variant="body2" color="text.secondary">Current State</Typography>
+                                                <Typography variant="body2" color="#FACC15" fontWeight="bold">{v.status}</Typography>
+                                            </Box>
+                                        </Paper>
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        )}
                     </Paper>
                 </Grid>
             </Grid>

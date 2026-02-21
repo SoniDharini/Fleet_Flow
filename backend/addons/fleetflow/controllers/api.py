@@ -381,6 +381,7 @@ class FleetFlowAPI(http.Controller):
                 'id': v.id,
                 'name': v.name,
                 'license_plate': v.license_plate,
+                'status': v.status,
                 'acquisition_cost': v.acquisition_cost,
                 'total_operational_cost': v.total_operational_cost,
                 'total_fuel_cost': v.total_fuel_cost,
