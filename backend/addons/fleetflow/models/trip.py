@@ -51,6 +51,10 @@ class Trip(models.Model):
 
     def action_dispatch(self):
         for rec in self:
+            if rec.vehicle_id.status in ['In Shop', 'Retired', 'On Trip']:
+                raise ValidationError(f"Cannot dispatch! Vehicle {rec.vehicle_id.name} is {rec.vehicle_id.status}.")
+            if rec.driver_id.status != 'On Duty':
+                raise ValidationError(f"Cannot dispatch! Driver {rec.driver_id.name} is {rec.driver_id.status}.")
             rec.state = 'Dispatched'
             rec.vehicle_id.status = 'On Trip'
             rec.driver_id.status = 'On Trip'
@@ -58,12 +62,14 @@ class Trip(models.Model):
     def action_complete(self):
         for rec in self:
             rec.state = 'Completed'
-            rec.vehicle_id.status = 'Available'
+            if rec.vehicle_id.status not in ['In Shop', 'Retired']:
+                rec.vehicle_id.status = 'Available'
             rec.vehicle_id.odometer += rec.distance_km
             rec.driver_id.status = 'On Duty'
 
     def action_cancel(self):
         for rec in self:
             rec.state = 'Cancelled'
-            rec.vehicle_id.status = 'Available'
+            if rec.vehicle_id.status not in ['In Shop', 'Retired']:
+                rec.vehicle_id.status = 'Available'
             rec.driver_id.status = 'On Duty'
