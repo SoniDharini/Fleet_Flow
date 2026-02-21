@@ -47,7 +47,12 @@ export default function Trips() {
     });
 
     const availableVehicles = (vehicles || []).filter((v: any) => v.status === 'Available');
-    const availableDrivers = (drivers || []).filter((d: any) => d.status === 'On Duty');
+    const availableDrivers = (drivers || []).filter((d: any) => {
+        const expiryDate = new Date(d.license_expiry_date);
+        const daysToExpiry = Math.ceil((expiryDate.getTime() - new Date().getTime()) / (1000 * 3600 * 24));
+        const isExpired = daysToExpiry <= 0;
+        return d.status === 'On Duty' && !isExpired;
+    });
 
     const selectedVehicleObj = vehicles?.find((v: any) => v.id === newTrip.vehicle_id);
     const isOverweight = selectedVehicleObj && newTrip.cargo_weight && parseFloat(newTrip.cargo_weight) > selectedVehicleObj.max_load_capacity;

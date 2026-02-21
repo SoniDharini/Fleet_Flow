@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { Box, Typography, Grid, Paper, Chip, Avatar, CircularProgress, LinearProgress, Button } from '@mui/material';
-import { Security as ShieldIcon, Warning as WarningIcon, LocalShipping as TruckIcon } from '@mui/icons-material';
+import { Box, Typography, Grid, Paper, Chip, Avatar, CircularProgress, LinearProgress, Button, ToggleButtonGroup, ToggleButton, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import { Security as ShieldIcon, Warning as WarningIcon, LocalShipping as TruckIcon, Lock as LockIcon } from '@mui/icons-material';
 import axios from 'axios';
 
 const fetchDrivers = async () => (await axios.get('/api/drivers')).data;
@@ -65,16 +65,24 @@ export default function Drivers() {
                                         </Box>
                                     </Box>
                                     <Chip
-                                        label={driver.status}
+                                        label={isExpired ? 'Locked' : (driver.status === 'Off Duty' ? 'Taking a Break' : driver.status)}
                                         size="small"
-                                        sx={{ backgroundColor: sColor.bg, color: sColor.color, fontWeight: 'bold' }}
+                                        icon={isExpired ? <LockIcon fontSize="small" /> : undefined}
+                                        sx={{
+                                            backgroundColor: isExpired ? 'rgba(239, 68, 68, 0.2)' : sColor.bg,
+                                            color: isExpired ? '#EF4444' : sColor.color,
+                                            fontWeight: 'bold',
+                                            padding: isExpired ? '0 5px' : '0'
+                                        }}
                                     />
                                 </Box>
 
-                                {driver.status === 'Suspended' && (
+                                {(driver.status === 'Suspended' || isExpired) && (
                                     <Box mb={2} p={1} sx={{ background: 'rgba(239, 68, 68, 0.2)', borderRadius: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
                                         <WarningIcon color="error" fontSize="small" />
-                                        <Typography variant="body2" color="#FCA5A5" fontWeight="bold">Driver Suspended</Typography>
+                                        <Typography variant="body2" color="#FCA5A5" fontWeight="bold">
+                                            {isExpired ? 'Safety Lock Active! License Renew Required.' : 'Driver Suspended'}
+                                        </Typography>
                                     </Box>
                                 )}
 
@@ -120,31 +128,44 @@ export default function Drivers() {
                                 </Box>
 
                                 {['manager', 'safety'].includes(localStorage.getItem('activeRole') || '') && (
-                                    <Box mt={2} pt={2} sx={{ borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'space-between', gap: 1 }}>
-                                        <Button
-                                            size="small"
-                                            variant="outlined"
-                                            color={driver.status === 'Suspended' ? 'success' : 'error'}
-                                            onClick={() => {
-                                                axios.post('/api/drivers/action', { driver_id: driver.id, status: driver.status === 'Suspended' ? 'On Duty' : 'Suspended' })
-                                                    .then(() => queryClient.invalidateQueries({ queryKey: ['drivers'] }));
-                                            }}
-                                        >
-                                            {driver.status === 'Suspended' ? 'Activate' : 'Suspend'}
-                                        </Button>
-                                        <Button
-                                            size="small"
-                                            variant="outlined"
-                                            onClick={() => {
-                                                const score = prompt('Enter new safety score (0-100):', driver.safety_score);
-                                                if (score && !isNaN(parseInt(score))) {
-                                                    axios.post('/api/drivers/action', { driver_id: driver.id, safety_score: parseInt(score) })
+                                    <Box mt={2} pt={2} sx={{ borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', flexDirection: 'column', gap: 2 }}>
+                                        <FormControl fullWidth size="small">
+                                            <InputLabel id={`duty-status-label-${driver.id}`}>Duty Status</InputLabel>
+                                            <Select
+                                                labelId={`duty-status-label-${driver.id}`}
+                                                value={driver.status}
+                                                label="Duty Status"
+                                                disabled={isExpired || driver.status === 'On Trip'}
+                                                onChange={(e) => {
+                                                    axios.post('/api/drivers/action', { driver_id: driver.id, status: e.target.value })
                                                         .then(() => queryClient.invalidateQueries({ queryKey: ['drivers'] }));
-                                                }
-                                            }}
-                                        >
-                                            Set Score
-                                        </Button>
+                                                }}
+                                                sx={{
+                                                    color: '#fff',
+                                                    '.MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,255,255,0.1)' }
+                                                }}
+                                            >
+                                                <MenuItem value="On Duty">On Duty</MenuItem>
+                                                <MenuItem value="Off Duty">Taking a Break</MenuItem>
+                                                <MenuItem value="Suspended">Suspended</MenuItem>
+                                            </Select>
+                                        </FormControl>
+
+                                        <Box display="flex" justifyContent="flex-end">
+                                            <Button
+                                                size="small"
+                                                variant="outlined"
+                                                onClick={() => {
+                                                    const score = prompt('Enter new safety score (0-100):', driver.safety_score);
+                                                    if (score && !isNaN(parseInt(score))) {
+                                                        axios.post('/api/drivers/action', { driver_id: driver.id, safety_score: parseInt(score) })
+                                                            .then(() => queryClient.invalidateQueries({ queryKey: ['drivers'] }));
+                                                    }
+                                                }}
+                                            >
+                                                Update Performance Log
+                                            </Button>
+                                        </Box>
                                     </Box>
                                 )}
                             </Paper>
