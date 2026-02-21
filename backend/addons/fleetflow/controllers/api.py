@@ -113,15 +113,41 @@ class FleetFlowAPI(http.Controller):
         return self._response({'status': 'ok'})
 
     @http.route('/api/dashboard', type='http', auth='public', methods=['GET'], cors='*', csrf=False)
-    def get_dashboard(self):
+    def get_dashboard(self, **kw):
         if not self._auth_check(): return self._response({'error': 'Unauthorized'}, 401)
         v_env = request.env['fleetflow.vehicle'].sudo()
         t_env = request.env['fleetflow.trip'].sudo()
-        active_fleet = v_env.search_count([('status', '=', 'On Trip')])
-        in_shop = v_env.search_count([('status', '=', 'In Shop')])
-        total = v_env.search_count([])
-        pending_trips = t_env.search_count([('state', '=', 'Draft')])
+        
+        v_domain = []
+        region = kw.get('region')
+        if region and region != 'all':
+            region_map = {'north': 'North India', 'south': 'South India', 'east': 'East India', 'west': 'West India'}
+            if region in region_map:
+                v_domain.append(('region', '=', region_map[region]))
+                
+        v_type = kw.get('type')
+        if v_type and v_type != 'all':
+            v_domain.append(('vehicle_type', '=', v_type))
+            
+        status = kw.get('status')
+        if status and status != 'all':
+            v_domain.append(('status', '=', status))
+            
+        vehicles = v_env.search(v_domain)
+        total = len(vehicles)
+        active_fleet = len(vehicles.filtered(lambda v: v.status == 'On Trip'))
+        in_shop = len(vehicles.filtered(lambda v: v.status == 'In Shop'))
+        
+        t_domain = [('state', '=', 'Draft')]
+        if v_domain:
+            if not vehicles:
+                t_domain.append(('id', '=', 0))
+            else:
+                t_domain.append(('vehicle_id', 'in', vehicles.ids))
+
+        pending_trips = t_env.search_count(t_domain)
         util_rate = (active_fleet / total * 100) if total > 0 else 0
+        
         return self._response({
             'active_fleet': active_fleet,
             'maintenance_alerts': in_shop,

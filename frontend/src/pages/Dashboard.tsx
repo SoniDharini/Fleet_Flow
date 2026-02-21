@@ -10,8 +10,9 @@ import {
 } from '@mui/icons-material';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
 
-const fetchDashboard = async () => {
-  const { data } = await axios.get('/api/dashboard');
+const fetchDashboard = async ({ queryKey }: any) => {
+  const [_key, params] = queryKey;
+  const { data } = await axios.get('/api/dashboard', { params });
   return data;
 };
 
@@ -25,8 +26,14 @@ const activityData = [
 ];
 
 export default function Dashboard() {
-  const { data, isLoading } = useQuery({ queryKey: ['dashboard'], queryFn: fetchDashboard });
   const [regionFilter, setRegionFilter] = useState('all');
+  const [typeFilter, setTypeFilter] = useState('all');
+  const [statusFilter, setStatusFilter] = useState('all');
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['dashboard', { region: regionFilter, type: typeFilter, status: statusFilter }],
+    queryFn: fetchDashboard
+  });
 
   if (isLoading) return <Box display="flex" justifyContent="center" mt={10}><CircularProgress sx={{ color: '#22D3EE' }} /></Box>;
 
@@ -63,26 +70,67 @@ export default function Dashboard() {
     <Box>
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
         <Typography variant="h4" fontWeight="bold">Command Center</Typography>
-        <FormControl size="small" sx={{ minWidth: 150 }}>
-          <InputLabel id="region-filter-label" sx={{ color: '#94A3B8' }}>Region</InputLabel>
-          <Select
-            labelId="region-filter-label"
-            value={regionFilter}
-            label="Region"
-            onChange={(e) => setRegionFilter(e.target.value)}
-            sx={{
-              color: '#fff',
-              '.MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,255,255,0.1)' },
-              '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#3B82F6' }
-            }}
-          >
-            <MenuItem value="all">All Regions</MenuItem>
-            <MenuItem value="north">North India</MenuItem>
-            <MenuItem value="south">South India</MenuItem>
-            <MenuItem value="west">West India</MenuItem>
-            <MenuItem value="east">East India</MenuItem>
-          </Select>
-        </FormControl>
+        <Box display="flex" gap={2}>
+          <FormControl size="small" sx={{ minWidth: 130 }}>
+            <InputLabel id="type-filter-label" sx={{ color: '#94A3B8' }}>Vehicle</InputLabel>
+            <Select
+              labelId="type-filter-label"
+              value={typeFilter}
+              label="Vehicle"
+              onChange={(e) => setTypeFilter(e.target.value)}
+              sx={{
+                color: '#fff',
+                '.MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,255,255,0.1)' },
+                '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#3B82F6' }
+              }}
+            >
+              <MenuItem value="all">Any Type</MenuItem>
+              <MenuItem value="truck">Trucks</MenuItem>
+              <MenuItem value="van">Vans</MenuItem>
+              <MenuItem value="car">Cars</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl size="small" sx={{ minWidth: 130 }}>
+            <InputLabel id="status-filter-label" sx={{ color: '#94A3B8' }}>Status</InputLabel>
+            <Select
+              labelId="status-filter-label"
+              value={statusFilter}
+              label="Status"
+              onChange={(e) => setStatusFilter(e.target.value)}
+              sx={{
+                color: '#fff',
+                '.MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,255,255,0.1)' },
+                '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#3B82F6' }
+              }}
+            >
+              <MenuItem value="all">Any Status</MenuItem>
+              <MenuItem value="Available">Ready</MenuItem>
+              <MenuItem value="On Trip">Busy</MenuItem>
+              <MenuItem value="In Shop">In Shop</MenuItem>
+              <MenuItem value="Retired">Retired</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl size="small" sx={{ minWidth: 150 }}>
+            <InputLabel id="region-filter-label" sx={{ color: '#94A3B8' }}>Region</InputLabel>
+            <Select
+              labelId="region-filter-label"
+              value={regionFilter}
+              label="Region"
+              onChange={(e) => setRegionFilter(e.target.value)}
+              sx={{
+                color: '#fff',
+                '.MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,255,255,0.1)' },
+                '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#3B82F6' }
+              }}
+            >
+              <MenuItem value="all">All Regions</MenuItem>
+              <MenuItem value="north">North India</MenuItem>
+              <MenuItem value="south">South India</MenuItem>
+              <MenuItem value="west">West India</MenuItem>
+              <MenuItem value="east">East India</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
       </Box>
 
       <Grid container spacing={4} mb={4}>
