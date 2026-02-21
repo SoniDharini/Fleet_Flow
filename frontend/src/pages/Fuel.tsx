@@ -39,16 +39,25 @@ export default function Fuel() {
     const totalFuelCost = (logs || []).reduce((acc: number, log: any) => acc + (log.cost || 0), 0);
     const totalLiters = (logs || []).reduce((acc: number, log: any) => acc + (log.liters || 0), 0);
 
-    // Group by vehicle for bar chart
-    const costByVehicle = (logs || []).reduce((acc: any, log: any) => {
-        acc[log.vehicle_name] = (acc[log.vehicle_name] || 0) + log.cost;
-        return acc;
-    }, {});
+    const chartData = (vehicles || []).map((v: any) => ({
+        name: v.name,
+        cost: v.total_operational_cost || 0
+    })).sort((a: any, b: any) => b.cost - a.cost).slice(0, 10);
 
-    const chartData = Object.keys(costByVehicle).map(name => ({
-        name,
-        cost: costByVehicle[name]
-    })).slice(0, 10); // Top 10
+    const costColumns: GridColDef[] = [
+        { field: 'name', headerName: 'Vehicle', flex: 1 },
+        { field: 'total_fuel_cost', headerName: 'Fuel (₹)', width: 110, type: 'number', align: 'left', headerAlign: 'left' },
+        { field: 'total_maintenance_cost', headerName: 'Repairs (₹)', width: 110, type: 'number', align: 'left', headerAlign: 'left' },
+        {
+            field: 'total_operational_cost',
+            headerName: 'Total Cost (₹)',
+            width: 140,
+            type: 'number',
+            align: 'left',
+            headerAlign: 'left',
+            renderCell: (params) => <Typography variant="body2" fontWeight="bold" color="#EF4444">₹{params.value || 0}</Typography>
+        },
+    ];
 
     return (
         <Box sx={{ position: 'relative', height: '100%' }}>
@@ -97,12 +106,12 @@ export default function Fuel() {
 
                 <Grid item xs={12} md={4}>
                     <Paper sx={{ p: 2, background: 'rgba(30, 41, 59, 0.6)', backdropFilter: 'blur(16px)', border: '1px solid rgba(255, 255, 255, 0.05)', height: '100%' }}>
-                        <Typography variant="body2" color="text.secondary" fontWeight="600" mb={1}>Cost Distribution (Top 10)</Typography>
+                        <Typography variant="body2" color="text.secondary" fontWeight="600" mb={1}>Total Cost per Vehicle (Top 10)</Typography>
                         <Box sx={{ height: 80, width: '100%' }}>
                             <ResponsiveContainer width="100%" height="100%">
                                 <BarChart data={chartData}>
                                     <Tooltip cursor={{ fill: 'rgba(255,255,255,0.05)' }} contentStyle={{ backgroundColor: '#1E293B', borderColor: '#3B82F6' }} />
-                                    <Bar dataKey="cost" fill="#10B981" radius={[4, 4, 0, 0]} />
+                                    <Bar dataKey="cost" fill="#EF4444" radius={[4, 4, 0, 0]} />
                                 </BarChart>
                             </ResponsiveContainer>
                         </Box>
@@ -110,33 +119,68 @@ export default function Fuel() {
                 </Grid>
             </Grid>
 
-            <Box sx={{
-                height: 'calc(100vh - 350px)',
-                width: '100%',
-                background: 'rgba(30, 41, 59, 0.7)',
-                backdropFilter: 'blur(16px)',
-                borderRadius: 3,
-                border: '1px solid rgba(255, 255, 255, 0.05)',
-                p: 1
-            }}>
-                <DataGrid
-                    rows={logs || []}
-                    columns={columns}
-                    initialState={{ pagination: { paginationModel: { pageSize: 15 } } }}
-                    pageSizeOptions={[15, 30, 50]}
-                    disableRowSelectionOnClick
-                    sx={{
-                        border: 'none',
-                        '& .MuiDataGrid-cell': { borderColor: 'rgba(255,255,255,0.05)' },
-                        '& .MuiDataGrid-columnHeaders': {
-                            background: 'rgba(15, 23, 42, 0.5)',
-                            borderColor: 'rgba(255,255,255,0.05)',
-                            borderBottom: '1px solid rgba(255,255,255,0.1)'
-                        },
-                        '& .MuiDataGrid-row:hover': { background: 'rgba(16, 185, 129, 0.05)' }
-                    }}
-                />
-            </Box>
+            <Grid container spacing={4}>
+                <Grid item xs={12} md={6}>
+                    <Typography variant="h6" fontWeight="bold" mb={2}>Recent Fuel Logs</Typography>
+                    <Box sx={{
+                        height: 'calc(100vh - 400px)',
+                        width: '100%',
+                        background: 'rgba(30, 41, 59, 0.7)',
+                        backdropFilter: 'blur(16px)',
+                        borderRadius: 3,
+                        border: '1px solid rgba(255, 255, 255, 0.05)',
+                        p: 1
+                    }}>
+                        <DataGrid
+                            rows={logs || []}
+                            columns={columns}
+                            initialState={{ pagination: { paginationModel: { pageSize: 15 } } }}
+                            pageSizeOptions={[15, 30, 50]}
+                            disableRowSelectionOnClick
+                            sx={{
+                                border: 'none',
+                                '& .MuiDataGrid-cell': { borderColor: 'rgba(255,255,255,0.05)' },
+                                '& .MuiDataGrid-columnHeaders': {
+                                    background: 'rgba(15, 23, 42, 0.5)',
+                                    borderColor: 'rgba(255,255,255,0.05)',
+                                    borderBottom: '1px solid rgba(255,255,255,0.1)'
+                                },
+                                '& .MuiDataGrid-row:hover': { background: 'rgba(16, 185, 129, 0.05)' }
+                            }}
+                        />
+                    </Box>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <Typography variant="h6" fontWeight="bold" mb={2}>Cost per Vehicle</Typography>
+                    <Box sx={{
+                        height: 'calc(100vh - 400px)',
+                        width: '100%',
+                        background: 'rgba(30, 41, 59, 0.7)',
+                        backdropFilter: 'blur(16px)',
+                        borderRadius: 3,
+                        border: '1px solid rgba(255, 255, 255, 0.05)',
+                        p: 1
+                    }}>
+                        <DataGrid
+                            rows={vehicles || []}
+                            columns={costColumns}
+                            initialState={{ pagination: { paginationModel: { pageSize: 15 } } }}
+                            pageSizeOptions={[15, 30, 50]}
+                            disableRowSelectionOnClick
+                            sx={{
+                                border: 'none',
+                                '& .MuiDataGrid-cell': { borderColor: 'rgba(255,255,255,0.05)' },
+                                '& .MuiDataGrid-columnHeaders': {
+                                    background: 'rgba(15, 23, 42, 0.5)',
+                                    borderColor: 'rgba(255,255,255,0.05)',
+                                    borderBottom: '1px solid rgba(255,255,255,0.1)'
+                                },
+                                '& .MuiDataGrid-row:hover': { background: 'rgba(239, 68, 68, 0.05)' }
+                            }}
+                        />
+                    </Box>
+                </Grid>
+            </Grid>
 
             {['manager', 'finance'].includes(localStorage.getItem('activeRole') || '') && (
                 <Fab

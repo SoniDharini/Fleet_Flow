@@ -160,7 +160,7 @@ class FleetFlowAPI(http.Controller):
     def get_vehicles(self):
         if not self._auth_check(): return self._response({'error': 'Unauthorized'}, 401)
         if not self._has_role('dispatcher', 'safety', 'finance'): return self._response({'error': 'Forbidden'}, 403)
-        vehicles = request.env['fleetflow.vehicle'].sudo().search_read([], ['id', 'name', 'license_plate', 'status', 'vehicle_type', 'max_load_capacity', 'odometer'])
+        vehicles = request.env['fleetflow.vehicle'].sudo().search_read([], ['id', 'name', 'license_plate', 'status', 'vehicle_type', 'max_load_capacity', 'odometer', 'total_fuel_cost', 'total_maintenance_cost', 'total_operational_cost'])
         return self._response(vehicles)
 
     @http.route('/api/vehicles/new', type='http', auth='public', methods=['POST'], cors='*', csrf=False)
