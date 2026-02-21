@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
-import { Box, Typography, Chip, Fab, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, MenuItem, Switch, FormControlLabel, CircularProgress } from '@mui/material';
-import { Add as AddIcon } from '@mui/icons-material';
+import { Box, Typography, Chip, Fab, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, MenuItem, Switch, FormControlLabel, CircularProgress, IconButton } from '@mui/material';
+import { Add as AddIcon, Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import axios from 'axios';
 
 const fetchVehicles = async () => {
@@ -17,6 +17,9 @@ export default function Vehicles() {
   const [newVehicle, setNewVehicle] = useState({ name: '', license_plate: '', vehicle_type: 'car', max_load_capacity: '', region: 'North India' });
   const [searchTerm, setSearchTerm] = useState('');
 
+  const [editOpen, setEditOpen] = useState(false);
+  const [editVehicle, setEditVehicle] = useState<any>(null);
+
   const mutation = useMutation({
     mutationFn: (newBody: any) => axios.post('/api/vehicles/new', newBody),
     onSuccess: () => {
@@ -24,6 +27,21 @@ export default function Vehicles() {
       setOpen(false);
       setNewVehicle({ name: '', license_plate: '', vehicle_type: 'car', max_load_capacity: '', region: 'North India' });
     }
+  });
+
+  const editMutation = useMutation({
+    mutationFn: (body: any) => axios.post('/api/vehicles/update', body),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['vehicles'] });
+      setEditOpen(false);
+      setEditVehicle(null);
+    }
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: (id: number) => axios.post('/api/vehicles/delete', { id }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['vehicles'] }),
+    onError: (err: any) => alert(err.response?.data?.error || 'Failed to delete vehicle')
   });
 
   const getStatusColor = (status: string) => {
@@ -67,7 +85,7 @@ export default function Vehicles() {
       }
     },
     {
-      field: 'actions',
+      field: 'service',
       headerName: 'Service Toggle',
       width: 150,
       sortable: false,
@@ -92,6 +110,42 @@ export default function Vehicles() {
             label={params.row.status === 'In Shop' ? "In Shop" : "Out of Service"}
             componentsProps={{ typography: { variant: 'body2' } }}
           />
+        );
+      }
+    },
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      width: 120,
+      sortable: false,
+      renderCell: (params: GridRenderCellParams) => {
+        const isManager = localStorage.getItem('activeRole') === 'manager';
+        return (
+          <Box display="flex" gap={1}>
+            <IconButton
+              size="small"
+              color="primary"
+              disabled={!isManager}
+              onClick={() => {
+                setEditVehicle({ ...params.row });
+                setEditOpen(true);
+              }}
+            >
+              <EditIcon />
+            </IconButton>
+            <IconButton
+              size="small"
+              color="error"
+              disabled={!isManager}
+              onClick={() => {
+                if (window.confirm('Are you sure you want to remove this vehicle?')) {
+                  deleteMutation.mutate(params.row.id);
+                }
+              }}
+            >
+              <DeleteIcon />
+            </IconButton>
+          </Box>
         );
       }
     }
@@ -199,6 +253,56 @@ export default function Vehicles() {
             sx={{ px: 4 }}
           >
             {mutation.isPending ? 'Registering...' : 'Register'}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={editOpen} onClose={() => setEditOpen(false)} PaperProps={{
+        sx: {
+          background: 'rgba(30, 41, 59, 0.9)',
+          backdropFilter: 'blur(20px)',
+          border: '1px solid #3B82F6',
+          borderRadius: 3
+        }
+      }}>
+        <DialogTitle variant="h5" fontWeight="bold">Edit Vehicle</DialogTitle>
+        <DialogContent sx={{ minWidth: 400, mt: 1 }}>
+          {editVehicle && (
+            <>
+              <TextField fullWidth margin="dense" label="Model / Name" value={editVehicle.name} onChange={(e) => setEditVehicle({ ...editVehicle, name: e.target.value })} sx={{ mb: 2 }} />
+              <TextField fullWidth margin="dense" label="License Plate" value={editVehicle.license_plate} onChange={(e) => setEditVehicle({ ...editVehicle, license_plate: e.target.value })} sx={{ mb: 2 }} />
+              <TextField select fullWidth margin="dense" label="Vehicle Type" value={editVehicle.vehicle_type} onChange={(e) => setEditVehicle({ ...editVehicle, vehicle_type: e.target.value })} sx={{ mb: 2 }}>
+                <MenuItem value="car">Car</MenuItem>
+                <MenuItem value="truck">Truck</MenuItem>
+                <MenuItem value="van">Van</MenuItem>
+              </TextField>
+              <TextField fullWidth margin="dense" label="Max Load Capacity (kg)" type="number" value={editVehicle.max_load_capacity} onChange={(e) => setEditVehicle({ ...editVehicle, max_load_capacity: e.target.value })} sx={{ mb: 2 }} />
+              <TextField fullWidth margin="dense" label="Odometer (km)" type="number" value={editVehicle.odometer} onChange={(e) => setEditVehicle({ ...editVehicle, odometer: e.target.value })} sx={{ mb: 2 }} />
+              <TextField select fullWidth margin="dense" label="Status" value={editVehicle.status} onChange={(e) => setEditVehicle({ ...editVehicle, status: e.target.value })} sx={{ mb: 2 }}>
+                <MenuItem value="Available">Available</MenuItem>
+                <MenuItem value="On Trip">On Trip</MenuItem>
+                <MenuItem value="In Shop">In Shop</MenuItem>
+                <MenuItem value="Retired">Retired</MenuItem>
+              </TextField>
+            </>
+          )}
+        </DialogContent>
+        <DialogActions sx={{ p: 3 }}>
+          <Button onClick={() => setEditOpen(false)} sx={{ color: '#94A3B8' }}>Cancel</Button>
+          <Button
+            variant="contained"
+            onClick={() => {
+              const body = {
+                ...editVehicle,
+                max_load_capacity: parseFloat(editVehicle.max_load_capacity),
+                odometer: parseFloat(editVehicle.odometer)
+              };
+              editMutation.mutate(body);
+            }}
+            disabled={editMutation.isPending}
+            sx={{ px: 4 }}
+          >
+            {editMutation.isPending ? 'Saving...' : 'Save Changes'}
           </Button>
         </DialogActions>
       </Dialog>

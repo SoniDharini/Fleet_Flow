@@ -188,6 +188,41 @@ class FleetFlowAPI(http.Controller):
             return self._response({'status': 'ok'})
         return self._response({'error': 'Not found'}, 404)
 
+    @http.route('/api/vehicles/update', type='http', auth='public', methods=['POST'], cors='*', csrf=False)
+    def update_vehicle_details(self):
+        if not self._auth_check(): return self._response({'error': 'Unauthorized'}, 401)
+        if not self._has_role('manager'): return self._response({'error': 'Forbidden'}, 403)
+        params = json.loads(request.httprequest.data)
+        vehicle_id = params.get('id')
+        vehicle = request.env['fleetflow.vehicle'].sudo().browse(vehicle_id)
+        if vehicle:
+            try:
+                update_vals = {}
+                for k in ['name', 'license_plate', 'max_load_capacity', 'odometer', 'vehicle_type', 'region', 'status']:
+                    if k in params:
+                        update_vals[k] = params[k]
+                if update_vals:
+                    vehicle.write(update_vals)
+                return self._response({'status': 'ok'})
+            except Exception as e:
+                return self._response({'error': str(e)}, 400)
+        return self._response({'error': 'Not found'}, 404)
+
+    @http.route('/api/vehicles/delete', type='http', auth='public', methods=['POST'], cors='*', csrf=False)
+    def delete_vehicle(self):
+        if not self._auth_check(): return self._response({'error': 'Unauthorized'}, 401)
+        if not self._has_role('manager'): return self._response({'error': 'Forbidden'}, 403)
+        params = json.loads(request.httprequest.data)
+        vehicle_id = params.get('id')
+        vehicle = request.env['fleetflow.vehicle'].sudo().browse(vehicle_id)
+        if vehicle:
+            try:
+                vehicle.unlink()
+                return self._response({'status': 'ok'})
+            except Exception as e:
+                return self._response({'error': str(e)}, 400)
+        return self._response({'error': 'Not found'}, 404)
+
     @http.route('/api/trips', type='http', auth='public', methods=['GET'], cors='*', csrf=False)
     def get_trips(self):
         if not self._auth_check(): return self._response({'error': 'Unauthorized'}, 401)
